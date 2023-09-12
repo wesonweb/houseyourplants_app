@@ -14,9 +14,9 @@ app.use(express.urlencoded({extended: true}))
 
 app.use('/api/plants', plantRoutes)
 
-mongoose.connect(`${MONGO_URI}`)
-  .then(()=>{
-    app.listen(`${PORT}`, () => {
+mongoose.connect(MONGO_URI)
+  .then(() => {
+    app.listen(PORT, () => {
     console.log(`Connected to db, server started and listening on port ${PORT}`)
     })
   })
