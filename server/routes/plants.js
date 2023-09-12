@@ -1,3 +1,4 @@
+const { createPlant } = require('../controllers/plantController')
 const express = require('express')
 const router = express.Router()
 
@@ -12,9 +13,7 @@ router.get('/:id', (req, res)=> {
 })
 
 // POST a single plant (create)
-router.post('/', (req, res) => {
-  res.json({message: 'Create a new plant (POST)'})
-})
+router.post('/', createPlant)
 
 // DELETE a single plant
 router.delete('/:id', (req, res) => {
