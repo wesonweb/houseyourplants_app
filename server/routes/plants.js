@@ -1,11 +1,9 @@
-const { createPlant } = require('../controllers/plantController')
+const { createPlant, getPlants } = require('../controllers/plantController')
 const express = require('express')
 const router = express.Router()
 
 // GET all plants
-router.get('/', (req, res) => {
-  res.json({message: 'GET all plants'})
-})
+router.get('/', getPlants)
 
 // GET a single plant
 router.get('/:id', (req, res)=> {

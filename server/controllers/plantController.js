@@ -1,9 +1,6 @@
 const Plant = require('../models/PlantModel')
 
-
-
 // create a new plant
-
 const createPlant = async (req, res) => {
   const {
     image,
@@ -40,17 +37,28 @@ const createPlant = async (req, res) => {
     res.status(200).json(newPlant)
   } catch (err) {
     console.log(err)
+    return res.status(400).json({message: 'Could not create plant'})
   }
 }
 
 // get all plants
+const getPlants = async (req, res) => {
+  try {
+    const plants = await Plant.find({}).sort({ createdAt : -1 })
+    res.status(200).json(plants)
+  } catch {
+    console.log(err)
+    return res.status(400).json({message: 'Error trying to get plants'})
+  }
+}
 
 // get a plant by id
 
-// update a plant by id
+// update a plant by id (PATCH)
 
 // delete a plant by id
 
 module.exports = {
-  createPlant
+  createPlant,
+  getPlants
 }
