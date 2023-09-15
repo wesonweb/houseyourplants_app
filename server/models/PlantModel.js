@@ -51,7 +51,12 @@ const PlantSchema = new Schema({
     },
     problems: {
       type: [String],
+    },
+    care_level: {
+      type: String,
+      required: true
     }
 }, { timestamps: true })
+
 
 module.exports = mongoose.model('Plant', PlantSchema)

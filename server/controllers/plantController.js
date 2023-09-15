@@ -15,7 +15,8 @@ const createPlant = async (req, res) => {
     position,
     toxicity,
     flowers,
-    problems
+    problems,
+    care_level
   } = req.body
 
   try {
@@ -32,7 +33,8 @@ const createPlant = async (req, res) => {
       position,
       toxicity,
       flowers,
-      problems
+      problems,
+      care_level
     })
     res.status(200).json(newPlant)
   } catch (err) {
