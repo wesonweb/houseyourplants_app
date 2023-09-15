@@ -1,4 +1,4 @@
-const { createPlant, getPlants, getPlant } = require('../controllers/plantController')
+const { createPlant, getPlants, getPlant, editPlant, deletePlant } = require('../controllers/plantController')
 const express = require('express')
 const router = express.Router()
 
@@ -12,12 +12,8 @@ router.get('/:id', getPlant)
 router.post('/', createPlant)
 
 // DELETE a single plant
-router.delete('/:id', (req, res) => {
-  res.json({message: 'DELETE one plant'})
-})
+router.delete('/:id', deletePlant)
 
 // PUT a single plant (update)
-router.patch('/:id', (req, res) => {
-  res.json({message: 'Update one plant (PUT)'})
-})
+router.patch('/:id', editPlant)
 module.exports = router
