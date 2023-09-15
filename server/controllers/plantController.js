@@ -1,4 +1,4 @@
-const Plant = require('../models/plantModel')
+const Plant = require('../models/PlantModel')
 
 
 
