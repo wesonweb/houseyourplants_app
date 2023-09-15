@@ -46,7 +46,7 @@ const getPlants = async (req, res) => {
   try {
     const plants = await Plant.find({}).sort({ createdAt : -1 })
     res.status(200).json(plants)
-  } catch {
+  } catch (err) {
     console.log(err)
     return res.status(400).json({message: 'Error trying to get plants'})
   }
@@ -59,7 +59,7 @@ const getPlant = async (req, res) => {
   try {
     const plant = await Plant.findById(id)
     res.status(200).json(plant)
-  } catch{
+  } catch (err) {
     console.log(err)
     return res.status(400).json({message: `Error could not find plant with id of ${id}`})
   }
