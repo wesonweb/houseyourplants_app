@@ -54,11 +54,23 @@ const getPlants = async (req, res) => {
 
 // get a plant by id
 
+const getPlant = async (req, res) => {
+  const { id } = req.params
+  try {
+    const plant = await Plant.findById(id)
+    res.status(200).json(plant)
+  } catch{
+    console.log(err)
+    return res.status(400).json({message: `Error could not find plant with id of ${id}`})
+  }
+}
+
 // update a plant by id (PATCH)
 
 // delete a plant by id
 
 module.exports = {
   createPlant,
-  getPlants
+  getPlants,
+  getPlant
 }
