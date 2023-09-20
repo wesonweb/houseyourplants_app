@@ -9,7 +9,7 @@ router.get('/', getPlants)
 router.get('/:id', getPlant)
 
 // POST a single plant (create)
-router.post('/', createPlant)
+router.post('/new-plant', createPlant)
 
 // DELETE a single plant
 router.delete('/:id', deletePlant)
