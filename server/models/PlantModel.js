@@ -39,6 +39,7 @@ const PlantSchema = new Schema({
     },
     position: {
       type: [String],
+      enum: ['floor', 'table', 'hanging'],
       required: true
     },
     toxicity: {
@@ -54,6 +55,7 @@ const PlantSchema = new Schema({
     },
     care_level: {
       type: String,
+      enum: ['easy', 'hard'],
       required: true
     }
 }, { timestamps: true })
