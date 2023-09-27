@@ -39,6 +39,7 @@ const PlantSchema = new Schema({
     },
     position: {
       type: [String],
+      enum: ['floor', 'table', 'hanging'],
       required: true
     },
     toxicity: {
@@ -51,7 +52,13 @@ const PlantSchema = new Schema({
     },
     problems: {
       type: [String],
+    },
+    care_level: {
+      type: String,
+      enum: ['easy', 'hard'],
+      required: true
     }
 }, { timestamps: true })
+
 
 module.exports = mongoose.model('Plant', PlantSchema)
