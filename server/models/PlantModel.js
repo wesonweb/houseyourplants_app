@@ -5,7 +5,7 @@ const PlantSchema = new Schema({
     image: {
       type: String
     },
-    common_name: {
+    commonName: {
       type: String,
       required: true
     },
@@ -53,7 +53,7 @@ const PlantSchema = new Schema({
     problems: {
       type: [String],
     },
-    care_level: {
+    careLevel: {
       type: String,
       enum: ['easy', 'hard'],
       required: true
