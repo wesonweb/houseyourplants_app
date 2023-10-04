@@ -11,27 +11,32 @@ import PlantProblems from '../components/CreatePlantForm/PlantProblems'
 
 const CreatePlant = () => {
 
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, formState: {errors} } = useForm()
+
 
   const onSubmit = (data) => {
     console.log(data); // TODO create the API call that will send the data to the backend and create a new plant
   }
 
   // store Tailwind classes in variables to make JSX leaner and easier to update
-  const formLabelStandardStyle = "block text-gray-700 text-sm font-bold mb-2"
+  const formLabelDefaultStyle = "block text-gray-700 text-sm font-bold mb-2"
   const textInputStyle = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"
+  const errorMessageStyle = "text-red-700 text-s italic mt-1"
 
   return (
     <>
       <h1 className="text-center text-4xl mt-4">Create a plant</h1>
       <form
+        noValidate // prevent default browser validation
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 my-8 w-full max-w-lg m-auto"
         onSubmit={handleSubmit(onSubmit)}
       >
         <PlantDescription
           register={register}
-          formLabelStandardStyle={formLabelStandardStyle}
+          formLabelDefaultStyle={formLabelDefaultStyle}
           textInputStyle={textInputStyle}
+          errorMessageStyle={errorMessageStyle}
+          errors={errors}
         />
         <PlantImage
           register={register}
@@ -41,7 +46,9 @@ const CreatePlant = () => {
         />
         <PlantCareLevel
           register={register}
-          formLabelStandardStyle={formLabelStandardStyle}
+          formLabelDefaultStyle={formLabelDefaultStyle}
+          errors={errors}
+          errorMessageStyle={errorMessageStyle}
         />
         <PlantPosition
           register={register}
@@ -52,10 +59,14 @@ const CreatePlant = () => {
         <PlantFeedingAndWatering
           register={register}
           textInputStyle={textInputStyle}
+          errorMessageStyle={errorMessageStyle}
+          errors={errors}
         />
         <PlantHumidity
           register={register}
           textInputStyle={textInputStyle}
+          errorMessageStyle={errorMessageStyle}
+          errors={errors}
         />
         <PlantProblems
           register={register}

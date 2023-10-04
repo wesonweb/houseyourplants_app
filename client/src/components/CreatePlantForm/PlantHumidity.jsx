@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-const PlantHumidity = ({ register, textInputStyle }) => {
+const PlantHumidity = ({ register, textInputStyle, errors, errorMessageStyle }) => {
   return (
     <div className="my-6">
       <h2 className="text-xl">Humidity</h2>
@@ -12,12 +12,12 @@ const PlantHumidity = ({ register, textInputStyle }) => {
       <div className="mt-2">
         <textarea
           id="humidity"
-          {...register("humidity")}
+          {...register("humidity", { required: "You must provide humidity requirements" })}
           rows={5}
           className={textInputStyle}
           placeholder="eg mist regularly"
-          defaultValue={''}
         />
+        <p className={errorMessageStyle}>{errors.humidity?.message}</p>
       </div>
       <p className="mt-3 text-sm leading-6 text-gray-600">Enter the humidity requirements for this plant.</p>
     </div>
@@ -26,7 +26,9 @@ const PlantHumidity = ({ register, textInputStyle }) => {
 
 PlantHumidity.propTypes = {
   register: PropTypes.func.isRequired,
-  textInputStyle: PropTypes.string.isRequired
+  textInputStyle: PropTypes.string.isRequired,
+  errorMessageStyle: PropTypes.string.isRequired,
+  errors: PropTypes.object.isRequired,
 }
 
 export default PlantHumidity
