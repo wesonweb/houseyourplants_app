@@ -6,16 +6,20 @@ import PlantCareLevel from '../components/CreatePlantForm/PlantCareLevel'
 import PlantPosition from '../components/CreatePlantForm/PlantPosition'
 import PlantLighting from '../components/CreatePlantForm/PlantLighting'
 import PlantFeedingAndWatering from '../components/CreatePlantForm/PlantFeedingAndWatering'
-import PlantHumidity from '../components/CreatePlantForm/PlantHumidity'
+import PlantHumidityAndTemperature from '../components/CreatePlantForm/PlantHumidityAndTemperature'
 import PlantProblems from '../components/CreatePlantForm/PlantProblems'
 
 const CreatePlant = () => {
 
-  const { register, handleSubmit, formState: {errors} } = useForm()
-
+  const { register,
+          handleSubmit,
+          reset,
+          formState: {errors, isSubmitting}
+        } = useForm()
 
   const onSubmit = (data) => {
     console.log(data); // TODO create the API call that will send the data to the backend and create a new plant
+    reset()
   }
 
   // store Tailwind classes in variables to make JSX leaner and easier to update
@@ -62,8 +66,9 @@ const CreatePlant = () => {
           errorMessageStyle={errorMessageStyle}
           errors={errors}
         />
-        <PlantHumidity
+        <PlantHumidityAndTemperature
           register={register}
+          formLabelDefaultStyle={formLabelDefaultStyle}
           textInputStyle={textInputStyle}
           errorMessageStyle={errorMessageStyle}
           errors={errors}
@@ -74,6 +79,7 @@ const CreatePlant = () => {
         />
 
         <button
+          disabled={isSubmitting}
           type="submit"
           className="bg-green-600 hover:bg-green-700 text-white font-bold mt-4 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded"
         >
