@@ -4,8 +4,8 @@ const Plant = require('../models/PlantModel')
 const createPlant = async (req, res) => {
   const {
     image,
-    common_name,
-    scientific_name,
+    commonName,
+    scientificName,
     description,
     lighting,
     feeding,
@@ -16,14 +16,14 @@ const createPlant = async (req, res) => {
     toxicity,
     flowers,
     problems,
-    care_level
+    careLevel
   } = req.body
 
   try {
     const newPlant = await Plant.create({
       image,
-      common_name,
-      scientific_name,
+      commonName,
+      scientificName,
       description,
       lighting,
       feeding,
@@ -34,7 +34,7 @@ const createPlant = async (req, res) => {
       toxicity,
       flowers,
       problems,
-      care_level
+      careLevel
     })
     res.status(200).json(newPlant)
   } catch (err) {
