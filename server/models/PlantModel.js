@@ -3,7 +3,14 @@ const Schema = mongoose.Schema
 
 const PlantSchema = new Schema({
     image: {
-      type: String
+      publicId: {
+        type: String,
+        required: true
+      },
+      url: {
+        type: String,
+        required: true
+      }
     },
     commonName: {
       type: String,
