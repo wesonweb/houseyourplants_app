@@ -1,4 +1,5 @@
 const Plant = require('../models/PlantModel')
+const { cloudinary } = require('../utils/cloudinary')
 
 // create a new plant
 const createPlant = async (req, res) => {
