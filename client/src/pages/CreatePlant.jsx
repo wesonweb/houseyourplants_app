@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 import PlantDescription from '../components/CreatePlantForm/PlantDescription'
 import PlantImage from '../components/CreatePlantForm/PlantImage'
 import PlantFlowersOrToxic from '../components/CreatePlantForm/PlantFlowersOrToxic'
@@ -11,15 +12,61 @@ import PlantProblems from '../components/CreatePlantForm/PlantProblems'
 
 const CreatePlant = () => {
 
-  const { register,
-          handleSubmit,
-          reset,
-          formState: {errors, isSubmitting}
-        } = useForm()
+  const [plantImage, setPlantImage] = useState('') // useState hook to manage image state instead of React Hook Form
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: {errors, isSubmitting}
+  } = useForm()
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0] // get the first image file in the array
+    transformImageToBase64(file) // transform the image file into a base64 string
+  }
+
+  const transformImageToBase64 = (file) => {
+      const reader = new FileReader()
+      if (file) {
+      reader.readAsDataURL(file)
+      reader.onloadend = () => {
+        setPlantImage(reader.result) // use the setter function to update the state with the image base64 string
+        }
+      } else {
+        setPlantImage('') // if no file was provided, set the state to an empty string
+      }
+    }
 
   const onSubmit = (data) => {
-    console.log(data); // TODO create the API call that will send the data to the backend and create a new plant
-    reset()
+    const plantData = {
+      ...data, // spread the data object into a new object
+      image: plantImage // assign the base64 string to the image property of the object
+    }
+
+    const submitPlantData = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/plants/new-plant', {
+          method: 'POST',
+          body: JSON.stringify(plantData),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        const data = await response.json()
+        console.log('data', data)
+        if (!response.ok) {
+          throw new Error('Something went wrong. Please check your server logs')
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    submitPlantData() // submit the data to the server
+
+    setPlantImage('') // reset the image state
+    reset() // reset the form
   }
 
   // store Tailwind classes in variables to make JSX leaner and easier to update
@@ -43,7 +90,8 @@ const CreatePlant = () => {
           errors={errors}
         />
         <PlantImage
-          register={register}
+          plantImage={plantImage}
+          handleImageUpload={handleImageUpload}
         />
         <PlantFlowersOrToxic
           register={register}
@@ -79,7 +127,7 @@ const CreatePlant = () => {
         />
 
         <button
-          disabled={isSubmitting}
+          disabled={isSubmitting} // disable the button when the form is submitting
           type="submit"
           className="bg-green-600 hover:bg-green-700 text-white font-bold mt-4 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded"
         >
