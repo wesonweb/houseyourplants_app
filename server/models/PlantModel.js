@@ -16,7 +16,7 @@ const PlantSchema = new Schema({
       type: String,
       required: true
     },
-    scientific_name: {
+    scientificName: {
       type: String,
       required: true
     },
