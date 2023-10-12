@@ -53,23 +53,23 @@ const CreatePlant = () => {
     }
 
     const submitPlantData = async () => {
-      console.log('plantData', plantData);
-      // try {
-      //   const response = await fetch('http://localhost:4000/api/plants/new-plant', {
-      //     method: 'POST',
-      //     body: JSON.stringify(plantData),
-      //     headers: {
-      //       'Content-Type': 'application/json'
-      //     }
-      //   })
-      //   const data = await response.json()
-      //   console.log('data', data)
-      //   if (!response.ok) {
-      //     throw new Error('Something went wrong. Please check your server logs')
-      //   }
-      // } catch (error) {
-      //   console.log(error)
-      // }
+
+      try {
+        const response = await fetch('http://localhost:4000/api/plants/new-plant', {
+          method: 'POST',
+          body: JSON.stringify(plantData),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        const data = await response.json()
+        console.log('data', data)
+        if (!response.ok) {
+          throw new Error('Something went wrong. Please check your server logs')
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
 
     submitPlantData() // submit the data to the server

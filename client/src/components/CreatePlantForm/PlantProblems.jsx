@@ -1,6 +1,15 @@
 import PropTypes from 'prop-types'
 
-const PlantProblems = ({ register, errors, errorMessageStyle, textInputStyle, fields, append, remove, btnSecondary }) => {
+const PlantProblems = ({
+  register,
+  errors,
+  errorMessageStyle,
+  textInputStyle,
+  fields,
+  append,
+  remove,
+  btnSecondary
+}) => {
   return (
     <div className="my-6">
         <h2 className="text-xl">Problems with this plant</h2>
@@ -22,12 +31,12 @@ const PlantProblems = ({ register, errors, errorMessageStyle, textInputStyle, fi
                     />
                     <button type="button" className="ms-3" onClick={() => remove(index)}>Delete</button>
                   </div>
-                    {errors.problems && errors.problems[index].problem && <p className={errorMessageStyle}>{errors.problems[index].problem.message}</p>}
+                    {errors.problems && errors.problems[index] && <p className={errorMessageStyle}>{errors.problems[index].problem.message}</p>}
                 </div>
               )
             })
           }
-          <button type="button" className={btnSecondary} onClick={() => append({problem: ''})}>Add a problem</button>
+          <button type="button" className={btnSecondary} onClick={() => append()}>Add a problem</button>
         </div>
         <p className="mt-3 text-sm leading-6 text-gray-600">Enter any problems common to this plant.</p>
     </div>
