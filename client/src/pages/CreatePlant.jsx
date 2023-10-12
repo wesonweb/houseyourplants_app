@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form'
+import { useForm, useFieldArray } from 'react-hook-form'
 import { useState } from 'react'
 import PlantDescription from '../components/CreatePlantForm/PlantDescription'
 import PlantImage from '../components/CreatePlantForm/PlantImage'
@@ -18,8 +18,15 @@ const CreatePlant = () => {
     register,
     handleSubmit,
     reset,
+    control,
     formState: {errors, isSubmitting}
   } = useForm()
+
+  const { fields, append, remove } = useFieldArray({
+    name: 'problems',
+    control,
+    // defaultValues: [{}],
+  })
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0] // get the first image file in the array
@@ -38,6 +45,7 @@ const CreatePlant = () => {
       }
     }
 
+
   const onSubmit = (data) => {
     const plantData = {
       ...data, // spread the data object into a new object
@@ -45,22 +53,23 @@ const CreatePlant = () => {
     }
 
     const submitPlantData = async () => {
-      try {
-        const response = await fetch('http://localhost:4000/api/plants/new-plant', {
-          method: 'POST',
-          body: JSON.stringify(plantData),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        const data = await response.json()
-        console.log('data', data)
-        if (!response.ok) {
-          throw new Error('Something went wrong. Please check your server logs')
-        }
-      } catch (error) {
-        console.log(error)
-      }
+      console.log('plantData', plantData);
+      // try {
+      //   const response = await fetch('http://localhost:4000/api/plants/new-plant', {
+      //     method: 'POST',
+      //     body: JSON.stringify(plantData),
+      //     headers: {
+      //       'Content-Type': 'application/json'
+      //     }
+      //   })
+      //   const data = await response.json()
+      //   console.log('data', data)
+      //   if (!response.ok) {
+      //     throw new Error('Something went wrong. Please check your server logs')
+      //   }
+      // } catch (error) {
+      //   console.log(error)
+      // }
     }
 
     submitPlantData() // submit the data to the server
@@ -73,7 +82,8 @@ const CreatePlant = () => {
   const formLabelDefaultStyle = "block text-gray-700 text-sm font-bold mb-2"
   const textInputStyle = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"
   const errorMessageStyle = "text-red-700 text-s italic mt-1"
-
+  const btnPrimary="bg-green-600 hover:bg-green-700 text-white font-bold mt-4 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded"
+  const btnSecondary="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
   return (
     <>
       <h1 className="text-center text-4xl mt-4">Create a plant</h1>
@@ -123,13 +133,19 @@ const CreatePlant = () => {
         />
         <PlantProblems
           register={register}
+          errors={errors}
           textInputStyle={textInputStyle}
+          errorMessageStyle={errorMessageStyle}
+          fields={fields}
+          append={append}
+          remove={remove}
+          btnSecondary={btnSecondary}
         />
 
         <button
           disabled={isSubmitting} // disable the button when the form is submitting
           type="submit"
-          className="bg-green-600 hover:bg-green-700 text-white font-bold mt-4 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded"
+          className={btnPrimary}
         >
           Create plant
         </button>
