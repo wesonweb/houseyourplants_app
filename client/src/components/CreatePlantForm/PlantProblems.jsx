@@ -37,6 +37,7 @@ const PlantProblems = ({ register, errors, errorMessageStyle, textInputStyle, fi
 PlantProblems.propTypes = {
   register: PropTypes.func.isRequired,
   textInputStyle: PropTypes.string.isRequired,
+  errorMessageStyle: PropTypes.string.isRequired,
   btnSecondary: PropTypes.string.isRequired,
   fields: PropTypes.array.isRequired,
   append: PropTypes.func.isRequired,
