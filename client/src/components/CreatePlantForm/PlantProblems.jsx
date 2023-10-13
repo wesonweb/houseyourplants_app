@@ -43,9 +43,9 @@ const PlantProblems = ({
               )
             })
           }
-          <button type="button" className={btnSecondary} onClick={() => append()}>Add a problem</button>
-        </div>
         <p className="mt-3 text-sm leading-6 text-gray-600">Enter any problems common to this plant.</p>
+          <button type="button" className={`${btnSecondary} mt-5`} onClick={() => append()}>Add a problem</button>
+        </div>
     </div>
   )
 }
