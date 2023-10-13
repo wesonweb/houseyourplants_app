@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import {MdOutlineRemoveCircle} from 'react-icons/md'
 
 const PlantProblems = ({
   register,
@@ -29,7 +30,13 @@ const PlantProblems = ({
                       className={textInputStyle}
                       placeholder="eg prone to spider mites"
                     />
-                    <button type="button" className="ms-3" onClick={() => remove(index)}>Delete</button>
+                    <button type="button" aria-label="remove field" className="ms-3" onClick={() => remove(index)}>
+                      <MdOutlineRemoveCircle
+                        aria-label="remove"
+                        className="text-red-600 hover:text-red-800 transition ease-in-out delay-100"
+                        size={24}
+                      />
+                    </button>
                   </div>
                     {errors.problems && errors.problems[index] && <p className={errorMessageStyle}>{errors.problems[index].problem.message}</p>}
                 </div>
