@@ -1,5 +1,22 @@
+import { useRef } from 'react'
 import PropTypes from 'prop-types'
-const PlantDescription = ({ register, formLabelDefaultStyle, textInputStyle, errorMessageStyle, errors }) => {
+import { Editor } from '@tinymce/tinymce-react'
+
+const PlantDescription = ({
+    register,
+    formLabelDefaultStyle,
+    textInputStyle,
+    errorMessageStyle,
+    errors
+  }) => {
+    const MCE_API_KEY = import.meta.env.VITE_TINYMCE_API_KEY
+    console.log(MCE_API_KEY)
+    const editorRef = useRef(null)
+    const log = () => {
+      if (editorRef.current) {
+        console.log(editorRef.current.getContent())
+      }
+    }
   return (
     <>
       <div className="mb-4">
@@ -48,6 +65,12 @@ const PlantDescription = ({ register, formLabelDefaultStyle, textInputStyle, err
             rows={8}
             placeholder="Describe the plant and how to care for it"
           />
+
+          <Editor
+            apiKey={MCE_API_KEY}
+
+          />
+
           <p className={errorMessageStyle}>{errors.description?.message}</p>
         </div>
       </>
