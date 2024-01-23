@@ -57,6 +57,7 @@ const PlantDescription = ({
           <Controller
             name="description"
             control={control}
+            rules={{ required: 'You must provide a plant description' }}
             render={({ field: { value, onChange } }) => (
               <Editor
                 id="description"
