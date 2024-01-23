@@ -94,6 +94,7 @@ const CreatePlant = () => {
       >
         <PlantDescription
           register={register}
+          control={control}
           formLabelDefaultStyle={formLabelDefaultStyle}
           textInputStyle={textInputStyle}
           errorMessageStyle={errorMessageStyle}

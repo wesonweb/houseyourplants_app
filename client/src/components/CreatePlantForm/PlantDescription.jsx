@@ -1,22 +1,18 @@
 import { useRef } from 'react'
 import PropTypes from 'prop-types'
+import { Controller } from 'react-hook-form'
 import { Editor } from '@tinymce/tinymce-react'
 
 const PlantDescription = ({
     register,
+    control,
     formLabelDefaultStyle,
     textInputStyle,
     errorMessageStyle,
     errors
   }) => {
     const MCE_API_KEY = import.meta.env.VITE_TINYMCE_API_KEY
-    console.log(MCE_API_KEY)
     const editorRef = useRef(null)
-    const log = () => {
-      if (editorRef.current) {
-        console.log(editorRef.current.getContent())
-      }
-    }
   return (
     <>
       <div className="mb-4">
@@ -57,20 +53,26 @@ const PlantDescription = ({
             htmlFor="description">
             Enter the plant description
           </label>
-          <textarea
-            className={textInputStyle}
-            id="description"
-            type="textarea"
-            {...register('description', {required: 'You must provide a description of the plant'})}
-            rows={8}
-            placeholder="Describe the plant and how to care for it"
+
+          <Controller
+            name="description"
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <Editor
+                id="description"
+                apiKey={MCE_API_KEY}
+                onInit={(evt, editor) => editorRef.current = editor}
+                value={value}
+                onEditorChange={onChange}
+                initialValue="Add your plant description..."
+                init={{
+                  branding: false,
+                  height: 500,
+                  menubar: true,
+                }}
+              />
+            )}
           />
-
-          <Editor
-            apiKey={MCE_API_KEY}
-
-          />
-
           <p className={errorMessageStyle}>{errors.description?.message}</p>
         </div>
       </>
@@ -82,6 +84,7 @@ PlantDescription.propTypes = {
   formLabelDefaultStyle: PropTypes.string.isRequired,
   textInputStyle: PropTypes.string.isRequired,
   errorMessageStyle: PropTypes.string.isRequired,
+  control: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
 }
 
