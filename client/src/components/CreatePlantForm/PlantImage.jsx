@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
-const PlantImage = ({ plantImage, handleImageUpload }) => {
+const PlantImage = ({ plantImage, plantImageError, handleImageUpload }) => {
   return (
     <div className="my-6">
       <label
         htmlFor="image"
         className="block text-sm font-medium leading-6 text-gray-900">
-        Image of the plant
+        Upload an image of the plant
       </label>
       {!plantImage && (
         <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
@@ -33,11 +33,13 @@ const PlantImage = ({ plantImage, handleImageUpload }) => {
           {plantImage && (
             <img src={plantImage} alt="plant" className="mt-4" />
           )}
+          {plantImageError && ( <p className="text-red-700 text-s text-center italic mt-2">{plantImageError}</p>)}
       </div>
   )
 }
 PlantImage.propTypes = {
   plantImage: PropTypes.string.isRequired,
+  plantImageError: PropTypes.string.isRequired,
   handleImageUpload: PropTypes.func.isRequired
 }
 

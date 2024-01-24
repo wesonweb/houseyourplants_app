@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form'
+import { useForm, useFieldArray } from 'react-hook-form'
 import { useState } from 'react'
 import PlantDescription from '../components/CreatePlantForm/PlantDescription'
 import PlantImage from '../components/CreatePlantForm/PlantImage'
@@ -13,35 +13,56 @@ import PlantProblems from '../components/CreatePlantForm/PlantProblems'
 const CreatePlant = () => {
 
   const [plantImage, setPlantImage] = useState('') // useState hook to manage image state instead of React Hook Form
+  const [plantImageError, setPlantImageError] = useState('') // useState hook to manage image error state instead of React Hook Form
 
   const {
     register,
     handleSubmit,
     reset,
+    control,
     formState: {errors, isSubmitting}
   } = useForm()
 
+  const { fields, append, remove } = useFieldArray({
+    name: 'problems',
+    control,
+    // defaultValues: [{}],
+  })
+
   const handleImageUpload = (e) => {
     const file = e.target.files[0] // get the first image file in the array
+    if (file.length === 0) {
+      return
+    } else {
     transformImageToBase64(file) // transform the image file into a base64 string
+    }
   }
 
   const transformImageToBase64 = (file) => {
       const reader = new FileReader()
-      if (file) {
+      if (file !== '') {
       reader.readAsDataURL(file)
       reader.onloadend = () => {
         setPlantImage(reader.result) // use the setter function to update the state with the image base64 string
         }
       } else {
-        setPlantImage('') // if no file was provided, set the state to an empty string
+        console.error('no file was provided');
+        return
+        //setPlantImage('') // if no file was provided, set the state to an empty string
       }
     }
 
-  const onSubmit = (data) => {
+
+  const onSubmit = async (data) => {
+    if (!plantImage) {
+      const plantImageError = 'You must provide an image'
+      setPlantImageError(plantImageError)
+      console.error(plantImageError)
+      return
+    }
     const plantData = {
       ...data, // spread the data object into a new object
-      image: plantImage // assign the base64 string to the image property of the object
+      image: plantImage.trim() // assign the base64 string to the image property of the object
     }
 
     const submitPlantData = async () => {
@@ -63,9 +84,10 @@ const CreatePlant = () => {
       }
     }
 
-    submitPlantData() // submit the data to the server
+   await submitPlantData() // submit the data to the server
 
     setPlantImage('') // reset the image state
+    alert('Plant created successfully')
     reset() // reset the form
   }
 
@@ -73,17 +95,19 @@ const CreatePlant = () => {
   const formLabelDefaultStyle = "block text-gray-700 text-sm font-bold mb-2"
   const textInputStyle = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"
   const errorMessageStyle = "text-red-700 text-s italic mt-1"
-
+  const btnPrimary="bg-green-600 hover:bg-green-700 text-white font-bold mt-4 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded"
+  const btnSecondary="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
   return (
     <>
       <h1 className="text-center text-4xl mt-4">Create a plant</h1>
       <form
         noValidate // prevent default browser validation
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 my-8 w-full max-w-lg m-auto"
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 my-8 w-full max-w-xlg m-auto"
         onSubmit={handleSubmit(onSubmit)}
       >
         <PlantDescription
           register={register}
+          control={control}
           formLabelDefaultStyle={formLabelDefaultStyle}
           textInputStyle={textInputStyle}
           errorMessageStyle={errorMessageStyle}
@@ -92,6 +116,7 @@ const CreatePlant = () => {
         <PlantImage
           plantImage={plantImage}
           handleImageUpload={handleImageUpload}
+          plantImageError={plantImageError}
         />
         <PlantFlowersOrToxic
           register={register}
@@ -123,13 +148,19 @@ const CreatePlant = () => {
         />
         <PlantProblems
           register={register}
+          errors={errors}
           textInputStyle={textInputStyle}
+          errorMessageStyle={errorMessageStyle}
+          fields={fields}
+          append={append}
+          remove={remove}
+          btnSecondary={btnSecondary}
         />
 
         <button
           disabled={isSubmitting} // disable the button when the form is submitting
           type="submit"
-          className="bg-green-600 hover:bg-green-700 text-white font-bold mt-4 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded"
+          className={btnPrimary}
         >
           Create plant
         </button>
