@@ -1,9 +1,8 @@
 const Home = () => {
   return (
-    <header>
-      <h1>Houseyourplants</h1>
-      <p>Find the plant that's perfect for your home.</p>
-    </header>
+    <div className="p-4">
+      <h1 className="text-4xl">Home</h1>
+    </div>
   )
 }
 

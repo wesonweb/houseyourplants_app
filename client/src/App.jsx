@@ -9,6 +9,7 @@ import {  // only use for react-router-dom v6 and above
 import RootLayout from './layouts/RootLayout'
 // page imports
 import Home from './pages/Home'
+import About from './pages/About'
 import CreatePlant from './pages/CreatePlant'
 
 import './App.css'
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<RootLayout />}>
       <Route index element={<Home />} />
+      <Route path="/about" element={<About />} />
       <Route path="/create" element={<CreatePlant />} />
     </Route>
     )
