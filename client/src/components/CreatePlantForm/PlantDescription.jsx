@@ -65,11 +65,12 @@ const PlantDescription = ({
                 onInit={(evt, editor) => editorRef.current = editor}
                 value={value}
                 onEditorChange={onChange}
-                initialValue="Add your plant description..."
+                // initialValue="Add your plant description..."
                 init={{
                   branding: false,
                   height: 500,
                   menubar: true,
+                  placeholder: 'Add your plant description...',
                 }}
               />
             )}

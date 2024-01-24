@@ -13,6 +13,7 @@ import PlantProblems from '../components/CreatePlantForm/PlantProblems'
 const CreatePlant = () => {
 
   const [plantImage, setPlantImage] = useState('') // useState hook to manage image state instead of React Hook Form
+  const [plantImageError, setPlantImageError] = useState('') // useState hook to manage image error state instead of React Hook Form
 
   const {
     register,
@@ -30,30 +31,41 @@ const CreatePlant = () => {
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0] // get the first image file in the array
+    if (file.length === 0) {
+      return
+    } else {
     transformImageToBase64(file) // transform the image file into a base64 string
+    }
   }
 
   const transformImageToBase64 = (file) => {
       const reader = new FileReader()
-      if (file) {
+      if (file !== '') {
       reader.readAsDataURL(file)
       reader.onloadend = () => {
         setPlantImage(reader.result) // use the setter function to update the state with the image base64 string
         }
       } else {
-        setPlantImage('') // if no file was provided, set the state to an empty string
+        console.error('no file was provided');
+        return
+        //setPlantImage('') // if no file was provided, set the state to an empty string
       }
     }
 
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    if (!plantImage) {
+      const plantImageError = 'You must provide an image'
+      setPlantImageError(plantImageError)
+      console.error(plantImageError)
+      return
+    }
     const plantData = {
       ...data, // spread the data object into a new object
-      image: plantImage // assign the base64 string to the image property of the object
+      image: plantImage.trim() // assign the base64 string to the image property of the object
     }
 
     const submitPlantData = async () => {
-
       try {
         const response = await fetch('http://localhost:4000/api/plants/new-plant', {
           method: 'POST',
@@ -72,9 +84,10 @@ const CreatePlant = () => {
       }
     }
 
-    submitPlantData() // submit the data to the server
+   await submitPlantData() // submit the data to the server
 
     setPlantImage('') // reset the image state
+    alert('Plant created successfully')
     reset() // reset the form
   }
 
@@ -89,7 +102,7 @@ const CreatePlant = () => {
       <h1 className="text-center text-4xl mt-4">Create a plant</h1>
       <form
         noValidate // prevent default browser validation
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 my-8 w-full max-w-lg m-auto"
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 my-8 w-full max-w-xlg m-auto"
         onSubmit={handleSubmit(onSubmit)}
       >
         <PlantDescription
@@ -103,6 +116,7 @@ const CreatePlant = () => {
         <PlantImage
           plantImage={plantImage}
           handleImageUpload={handleImageUpload}
+          plantImageError={plantImageError}
         />
         <PlantFlowersOrToxic
           register={register}
