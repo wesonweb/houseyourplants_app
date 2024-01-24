@@ -3,13 +3,20 @@ const Schema = mongoose.Schema
 
 const PlantSchema = new Schema({
     image: {
-      type: String
+      publicId: {
+        type: String,
+        required: true
+      },
+      url: {
+        type: String,
+        required: true
+      }
     },
     commonName: {
       type: String,
       required: true
     },
-    scientific_name: {
+    scientificName: {
       type: String,
       required: true
     },
@@ -19,6 +26,7 @@ const PlantSchema = new Schema({
     },
     lighting: {
       type: [String],
+      enum: ['low', 'medium', 'direct'],
       required: true
     },
     feeding: {

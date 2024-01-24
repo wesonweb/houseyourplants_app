@@ -1,11 +1,12 @@
 const Plant = require('../models/PlantModel')
+const { cloudinary } = require('../utils/cloudinary')
 
 // create a new plant
 const createPlant = async (req, res) => {
-  const {
+  let {
     image,
-    common_name,
-    scientific_name,
+    commonName,
+    scientificName,
     description,
     lighting,
     feeding,
@@ -16,14 +17,23 @@ const createPlant = async (req, res) => {
     toxicity,
     flowers,
     problems,
-    care_level
+    careLevel
   } = req.body
 
+
   try {
+    const uploadResponse = await cloudinary.uploader.upload(image, {
+      upload_preset: 'houseyourplants'
+    })
+    image = {
+      publicId: uploadResponse.public_id,
+      url: uploadResponse.secure_url
+    }
+
     const newPlant = await Plant.create({
       image,
-      common_name,
-      scientific_name,
+      commonName,
+      scientificName,
       description,
       lighting,
       feeding,
@@ -34,11 +44,11 @@ const createPlant = async (req, res) => {
       toxicity,
       flowers,
       problems,
-      care_level
+      careLevel
     })
     res.status(200).json(newPlant)
   } catch (err) {
-    console.log(err)
+    console.error(err)
     return res.status(400).json({message: 'Could not create plant'})
   }
 }

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
-const PlantDescription = ({ register, formLabelStandardStyle, textInputStyle }) => {
+const PlantDescription = ({ register, formLabelDefaultStyle, textInputStyle, errorMessageStyle, errors }) => {
   return (
     <>
       <div className="mb-4">
           <label
-            className={formLabelStandardStyle}
+            className={formLabelDefaultStyle}
             htmlFor="commonName">
             Plant common name
           </label>
@@ -15,11 +15,12 @@ const PlantDescription = ({ register, formLabelStandardStyle, textInputStyle }) 
             {...register('commonName', { required: 'You must provide the plants common name' })}
             placeholder="eg Spider Plant"
           />
+          <p className={errorMessageStyle}>{errors.commonName?.message}</p>
         </div>
 
         <div className="mb-4">
           <label
-            className={formLabelStandardStyle}
+            className={formLabelDefaultStyle}
             htmlFor="scientificName">
             Plant botanical name
           </label>
@@ -30,11 +31,12 @@ const PlantDescription = ({ register, formLabelStandardStyle, textInputStyle }) 
             {...register('scientificName', { required: 'You must provide the plants botanical name' })}
             placeholder="eg Chlorophytum comosum "
           />
+          <p className={errorMessageStyle}>{errors.scientificName?.message}</p>
         </div>
 
         <div className="my-6">
           <label
-            className={formLabelStandardStyle}
+            className={formLabelDefaultStyle}
             htmlFor="description">
             Enter the plant description
           </label>
@@ -46,6 +48,7 @@ const PlantDescription = ({ register, formLabelStandardStyle, textInputStyle }) 
             rows={8}
             placeholder="Describe the plant and how to care for it"
           />
+          <p className={errorMessageStyle}>{errors.description?.message}</p>
         </div>
       </>
   )
@@ -53,8 +56,10 @@ const PlantDescription = ({ register, formLabelStandardStyle, textInputStyle }) 
 
 PlantDescription.propTypes = {
   register: PropTypes.func.isRequired,
-  formLabelStandardStyle: PropTypes.string.isRequired,
-  textInputStyle: PropTypes.string.isRequired
+  formLabelDefaultStyle: PropTypes.string.isRequired,
+  textInputStyle: PropTypes.string.isRequired,
+  errorMessageStyle: PropTypes.string.isRequired,
+  errors: PropTypes.object.isRequired,
 }
 
 export default PlantDescription
