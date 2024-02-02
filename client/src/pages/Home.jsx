@@ -5,16 +5,12 @@ import { usePlantsContext } from '../hooks/usePlantsContext'
 const Home = () => {
 
   const { plants, dispatch } = usePlantsContext()
-
-  console.log('plants', plants);
-
   useEffect( () => {
     const fetchPlants = async () => {
       try {
           const response = await fetch('http://localhost:4000/api/plants/')
           const data = await response.json()
           dispatch({ type: 'GET_PLANTS', payload: data })
-          console.log(data);
         }
 
       catch (error) {
@@ -26,7 +22,6 @@ const Home = () => {
 
   }, [dispatch])
 
-  console.log(plants);
 
   return (
     <>
