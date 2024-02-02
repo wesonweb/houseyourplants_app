@@ -9,9 +9,11 @@ function PlantCard({ plant }) {
       <p>{flowers && (
         <span className="text-green-500">This plant flowers</span>
       )}</p>
-      <p>{toxicity && (
-        <span className="text-red-500">This plant is poisonous to pets</span>
-      )}</p>
+      <p>{toxicity
+          ? <span className="text-red-500">This plant is poisonous to pets</span>
+          : <span className="text-green-500">This plant is safe for pets</span>
+          }
+      </p>
     </article>
   )
 }
