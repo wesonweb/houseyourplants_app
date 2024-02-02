@@ -3,20 +3,12 @@ import { PropTypes } from 'prop-types'
 
 function PlantCard({ plant }) {
 
-  const { commonName, scientificName, flowers, toxicity, _id } = plant
+  const { commonName, scientificName, _id } = plant
   return (
-    <article className="container mt-4 p-4">
-      <Link to={`/plants/${_id}`}>
+    <article className="container mt-4 bg-white shadow hover:shadow-md rounded">
+      <Link to={`/plants/${_id}`} className="block h-full p-4">
       <h1 className="text-2xl mb-2">{commonName}</h1>
       <span><em>{scientificName}</em></span>
-      <p>{flowers && (
-        <span className="text-green-500">This plant flowers</span>
-      )}</p>
-      <p>{toxicity
-          ? <span className="text-red-500">This plant is poisonous to pets</span>
-          : <span className="text-green-500">This plant is safe for pets</span>
-          }
-      </p>
       </Link>
     </article>
   )

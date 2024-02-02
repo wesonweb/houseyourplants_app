@@ -28,6 +28,7 @@ const Home = () => {
       <article className="plants">
         <h1 className="text-4xl">Houseyourplants</h1>
         <p>Find the plant that is perfect for your home</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {plants && plants.map(plant => (
               <PlantCard
               key={plant._id}
@@ -35,6 +36,7 @@ const Home = () => {
               />
             ))
           }
+          </div>
       </article>
     </>
   )
