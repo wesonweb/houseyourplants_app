@@ -71,6 +71,7 @@ const CreatePlant = () => {
           method: 'POST',
           body: JSON.stringify(plantData),
           headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json'
           }
         })
