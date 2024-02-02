@@ -73,8 +73,8 @@ export default function PlantDetails() {
             ))}
           </div>
           <h2 className="text-xl">Problems</h2>
-          <div>{problems?.map(problem => (
-            <p key={problem}>{problem}</p>
+          <div>{problems?.map(issue => (
+            <p key={issue.problem}>{issue.problem}</p>
             ))}
           </div>
           <h2 className="text-xl">Toxicity</h2>
