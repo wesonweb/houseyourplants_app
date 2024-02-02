@@ -36,7 +36,7 @@ const RootLayout = () => {
       <main>
         <Outlet />
       </main>
-      <footer className="bg-sky-300">
+      <footer className="bg-sky-200">
         <div className="container mx-auto">
           <p className="text-center py-4">&copy; 2024 houseyourplants</p>
         </div>
