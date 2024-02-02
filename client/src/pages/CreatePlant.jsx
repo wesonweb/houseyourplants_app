@@ -1,5 +1,6 @@
 import { useForm, useFieldArray } from 'react-hook-form'
 import { useState } from 'react'
+import { usePlantsContext } from '../hooks/usePlantsContext'
 import PlantDescription from '../components/CreatePlantForm/PlantDescription'
 import PlantImage from '../components/CreatePlantForm/PlantImage'
 import PlantFlowersOrToxic from '../components/CreatePlantForm/PlantFlowersOrToxic'
@@ -11,9 +12,10 @@ import PlantHumidityAndTemperature from '../components/CreatePlantForm/PlantHumi
 import PlantProblems from '../components/CreatePlantForm/PlantProblems'
 
 const CreatePlant = () => {
-
   const [plantImage, setPlantImage] = useState('') // useState hook to manage image state instead of React Hook Form
   const [plantImageError, setPlantImageError] = useState('') // useState hook to manage image error state instead of React Hook Form
+
+  const { plants, dispatch } = usePlantsContext()
 
   const {
     register,
@@ -71,6 +73,7 @@ const CreatePlant = () => {
           method: 'POST',
           body: JSON.stringify(plantData),
           headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json'
           }
         })
@@ -89,6 +92,7 @@ const CreatePlant = () => {
     setPlantImage('') // reset the image state
     alert('Plant created successfully')
     reset() // reset the form
+    dispatch({ type: 'CREATE_PLANT', payload: plantData }) // update the state with the new plant data
   }
 
   // store Tailwind classes in variables to make JSX leaner and easier to update
@@ -100,6 +104,8 @@ const CreatePlant = () => {
   return (
     <>
       <h1 className="text-center text-4xl mt-4">Create a plant</h1>
+
+      <p className="text-center mt-3">There are currently <strong>{plants && plants.length}</strong> plants in the database</p>
       <form
         noValidate // prevent default browser validation
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 my-8 w-full max-w-xlg m-auto"
