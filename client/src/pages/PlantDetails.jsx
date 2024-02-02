@@ -37,11 +37,11 @@ export default function PlantDetails() {
 
   const lighting = plant && plant.lighting
   const position = plant && plant.position
+  const problems = plant && plant.problems
+  console.log(problems);
   const imageURL = image && image.url
 
-  const { problems}  = plant || {}
 
-  console.log(problems)
   return (
     <div>
       { error && <p>There was an error: {error.message}</p> }
@@ -76,6 +76,11 @@ export default function PlantDetails() {
           </div>
           {/* TODO:  add problems */}
 
+          <h2 className="text-xl">Problems</h2>
+          <div>{problems?.map(problem => (
+            <p key={problem}>{problem}</p>
+            ))}
+          </div>
           <h2 className="text-xl">Toxicity</h2>
             <p>{toxicity
                 ? <span className="text-red-500">This plant is poisonous to pets</span>

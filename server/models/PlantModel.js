@@ -59,7 +59,7 @@ const PlantSchema = new Schema({
       required: true
     },
     problems: {
-      type: [Object],
+      type: [String],
     },
     careLevel: {
       type: String,
