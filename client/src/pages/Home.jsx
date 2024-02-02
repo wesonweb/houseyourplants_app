@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import PlantCard from '../components/Plant/PlantCard'
 import { usePlantsContext } from '../hooks/usePlantsContext'
 
