@@ -11,7 +11,6 @@ import PlantHumidityAndTemperature from '../components/CreatePlantForm/PlantHumi
 import PlantProblems from '../components/CreatePlantForm/PlantProblems'
 
 const CreatePlant = () => {
-
   const [plantImage, setPlantImage] = useState('') // useState hook to manage image state instead of React Hook Form
   const [plantImageError, setPlantImageError] = useState('') // useState hook to manage image error state instead of React Hook Form
 
