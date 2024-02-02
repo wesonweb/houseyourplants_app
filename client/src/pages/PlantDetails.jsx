@@ -19,7 +19,6 @@ export default function PlantDetails() {
       setPlant(plant)
       setLoading(false)
       setError(null)
-      // console.log(plant);
     }
     catch (error) {
       setError(error)
@@ -38,7 +37,6 @@ export default function PlantDetails() {
   const lighting = plant && plant.lighting
   const position = plant && plant.position
   const problems = plant && plant.problems
-  console.log(problems);
   const imageURL = image && image.url
 
 
@@ -74,8 +72,6 @@ export default function PlantDetails() {
             <p key={p}>{p}</p>
             ))}
           </div>
-          {/* TODO:  add problems */}
-
           <h2 className="text-xl">Problems</h2>
           <div>{problems?.map(problem => (
             <p key={problem}>{problem}</p>

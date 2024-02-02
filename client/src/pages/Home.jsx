@@ -28,9 +28,6 @@ const Home = () => {
       <article className="plants">
         <h1 className="text-4xl">Houseyourplants</h1>
         <p>Find the plant that is perfect for your home</p>
-          { plants && (
-            <p className="mt-3 mb-3">There are {plants.length} plants in the database</p>
-          )}
           {plants && plants.map(plant => (
               <PlantCard
               key={plant._id}
