@@ -3,7 +3,9 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import parse from 'html-react-parser'
 
-export default function PlantDetails() {
+import EditDeleteBar from '../components/EditDeleteBar/EditDeleteBar'
+
+export default function PlantPage() {
 
   const [plant, setPlant] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -42,6 +44,7 @@ export default function PlantDetails() {
 
   return (
     <div>
+      <EditDeleteBar />
       { error && <p>There was an error: {error.message}</p> }
       {loading && (
         <p>Loading...</p>
