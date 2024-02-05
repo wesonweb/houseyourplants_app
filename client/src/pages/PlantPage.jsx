@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import parse from 'html-react-parser'
-
+import Loader from '../components/Loader/Loader'
 import EditDeleteBar from '../components/EditDeleteBar/EditDeleteBar'
 
 export default function PlantPage() {
@@ -19,9 +19,11 @@ export default function PlantPage() {
     try {
       const response = await fetch(`http://localhost:4000/api/plants/${id}`)
       const plant = await response.json()
-      setPlant(plant)
-      setLoading(false)
-      setError(null)
+      if(response.ok) {
+        setLoading(false)
+        setPlant(plant)
+        setError(null)
+      }
     }
     catch (error) {
       setError(error)
@@ -66,6 +68,7 @@ console.log('the plant id is', id);
 
   return (
     <div>
+      {loading && <Loader />}
       <EditDeleteBar handleDeletePlant={handleDeletePlant}/>
       { error && <p>There was an error: {error.message}</p> }
       {loading && (
