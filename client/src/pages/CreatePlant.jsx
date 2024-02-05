@@ -1,6 +1,7 @@
 import { useForm, useFieldArray } from 'react-hook-form'
 import { useState } from 'react'
 import { usePlantsContext } from '../hooks/usePlantsContext'
+import { useNavigate } from 'react-router-dom'
 import PlantDescription from '../components/CreatePlantForm/PlantDescription'
 import PlantImage from '../components/CreatePlantForm/PlantImage'
 import PlantFlowersOrToxic from '../components/CreatePlantForm/PlantFlowersOrToxic'
@@ -12,6 +13,8 @@ import PlantHumidityAndTemperature from '../components/CreatePlantForm/PlantHumi
 import PlantProblems from '../components/CreatePlantForm/PlantProblems'
 
 const CreatePlant = () => {
+  const navigate = useNavigate()
+
   const [plantImage, setPlantImage] = useState('') // useState hook to manage image state instead of React Hook Form
   const [plantImageError, setPlantImageError] = useState('') // useState hook to manage image error state instead of React Hook Form
 
@@ -20,7 +23,6 @@ const CreatePlant = () => {
   const {
     register,
     handleSubmit,
-    reset,
     control,
     formState: {errors, isSubmitting}
   } = useForm()
@@ -28,7 +30,6 @@ const CreatePlant = () => {
   const { fields, append, remove } = useFieldArray({
     name: 'problems',
     control,
-    // defaultValues: [{}],
   })
 
   const handleImageUpload = (e) => {
@@ -78,7 +79,7 @@ const CreatePlant = () => {
           }
         })
         const data = await response.json()
-        console.log('data', data)
+        console.log('plant data:', data)
         if (!response.ok) {
           throw new Error('Something went wrong. Please check your server logs')
         }
@@ -88,14 +89,14 @@ const CreatePlant = () => {
     }
 
    await submitPlantData() // submit the data to the server
-
     setPlantImage('') // reset the image state
-    alert('Plant created successfully')
-    reset() // reset the form
+    // TODO: investigate pretty alert to show the user that the plant has been created
     dispatch({ type: 'CREATE_PLANT', payload: plantData }) // update the state with the new plant data
+    navigate('/') // navigate to the home page after the plant has been created
   }
 
   // store Tailwind classes in variables to make JSX leaner and easier to update
+  // TODO: look at customising Tailwind classes
   const formLabelDefaultStyle = "block text-gray-700 text-sm font-bold mb-2"
   const textInputStyle = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"
   const errorMessageStyle = "text-red-700 text-s italic mt-1"

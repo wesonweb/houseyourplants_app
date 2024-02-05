@@ -1,9 +1,12 @@
 
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import parse from 'html-react-parser'
+import Loader from '../components/Loader/Loader'
+import EditDeleteBar from '../components/EditDeleteBar/EditDeleteBar'
 
-export default function PlantDetails() {
+export default function PlantPage() {
 
   const [plant, setPlant] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -16,9 +19,11 @@ export default function PlantDetails() {
     try {
       const response = await fetch(`http://localhost:4000/api/plants/${id}`)
       const plant = await response.json()
-      setPlant(plant)
-      setLoading(false)
-      setError(null)
+      if(response.ok) {
+        setLoading(false)
+        setPlant(plant)
+        setError(null)
+      }
     }
     catch (error) {
       setError(error)
@@ -28,7 +33,28 @@ export default function PlantDetails() {
   fetchPlant()
 }, [id])
 
+let navigate = useNavigate()
+const handleDeletePlant = async () => {
+  try {
+    const response = await fetch(`http://localhost:4000/api/plants/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await response.json()
+    if(response.ok) {
+    console.log(data)
+    navigate('/')
+    }
+  }
+  catch (error) {
+    console.error(error)
+  }
+}
 
+
+console.log('the plant id is', id);
   const { commonName, scientificName, careLevel, description, watering, feeding, humidity, temperature, toxicity, flowers, image  } = plant || {}
 
   // parse the description to render the html tags added by TinyMCE
@@ -42,6 +68,8 @@ export default function PlantDetails() {
 
   return (
     <div>
+      {loading && <Loader />}
+      <EditDeleteBar handleDeletePlant={handleDeletePlant}/>
       { error && <p>There was an error: {error.message}</p> }
       {loading && (
         <p>Loading...</p>
@@ -51,7 +79,7 @@ export default function PlantDetails() {
           <h1 className="text-3xl">{commonName}</h1>
             <p>{scientificName}</p>
             <p>This plant is <span className="text-lg">{careLevel}</span> to look after</p>
-          <p>Image url: {imageURL}</p>
+          <p className="break-words">Image url: {imageURL}</p>
           <h2 className="text-xl">Description</h2>
             {parsedDescription}
           <h2 className="text-xl">Watering instructions</h2>

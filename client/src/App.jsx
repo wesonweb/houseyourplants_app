@@ -11,7 +11,7 @@ import RootLayout from './layouts/RootLayout'
 import Home from './pages/Home'
 import About from './pages/About'
 import CreatePlant from './pages/CreatePlant'
-import Plant from './pages/PlantDetails'
+import Plant from './pages/PlantPage'
 
 import './App.css'
 
