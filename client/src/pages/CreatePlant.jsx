@@ -23,7 +23,6 @@ const CreatePlant = () => {
   const {
     register,
     handleSubmit,
-    reset,
     control,
     formState: {errors, isSubmitting}
   } = useForm()
@@ -31,7 +30,6 @@ const CreatePlant = () => {
   const { fields, append, remove } = useFieldArray({
     name: 'problems',
     control,
-    // defaultValues: [{}],
   })
 
   const handleImageUpload = (e) => {
@@ -92,7 +90,6 @@ const CreatePlant = () => {
 
    await submitPlantData() // submit the data to the server
     setPlantImage('') // reset the image state
-    // TODO: add a loading spinner
     // TODO: investigate pretty alert to show the user that the plant has been created
     dispatch({ type: 'CREATE_PLANT', payload: plantData }) // update the state with the new plant data
     navigate('/') // navigate to the home page after the plant has been created
