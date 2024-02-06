@@ -26,3 +26,8 @@ main {
 .brand-title {
   letter-spacing: 2px;
 }
+
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+}
