@@ -15,5 +15,5 @@ router.post('/new-plant', createPlant)
 router.delete('/:id', deletePlant)
 
 // PUT a single plant (update)
-router.patch('/:id', editPlant)
+router.patch('/edit/:id', editPlant)
 module.exports = router

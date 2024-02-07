@@ -1,7 +1,11 @@
 import { useState } from 'react'
+import { Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Modal from '../Modal'
-export default function EditDeleteBar({ handleDeletePlant}) {
+
+import { MdModeEdit } from "react-icons/md"
+import { FaTrash } from "react-icons/fa"
+export default function EditDeleteBar({ handleDeletePlant, id}) {
 
   const [openModal, setOpenModal] = useState(false)
 
@@ -12,15 +16,21 @@ export default function EditDeleteBar({ handleDeletePlant}) {
   return (
     <>
       <div className="flex justify-end">
-        <button
+        <Link to={`/plants/edit/${id}`}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 me-3 rounded">
-          Edit
-        </button>
+          <div className="flex items-center">
+            <MdModeEdit className="me-2" />
+              Edit
+          </div>
+        </Link>
         <button
           className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
           onClick={toggleModal}
           >
-          Delete
+          <div className="flex items-center">
+            <FaTrash className="me-2" />
+              Delete
+          </div>
         </button>
       </div>
       <Modal
@@ -33,5 +43,6 @@ export default function EditDeleteBar({ handleDeletePlant}) {
 }
 
 EditDeleteBar.propTypes = {
-  handleDeletePlant: PropTypes.func.isRequired
+  handleDeletePlant: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired
 }

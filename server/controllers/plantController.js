@@ -82,7 +82,7 @@ const getPlant = async (req, res) => {
 const editPlant = async (req, res) => {
   const { id } = req.params
   try {
-    const plant = await Plant.findOneAndUpdate({_id: id}, {...req.body})
+    const plant = await Plant.findOneAndUpdate({_id: id}, {...req.body}, {new: true, runValidators: true})
     return res.status(200).json(plant)
   } catch (err) {
     console.log(err)
