@@ -70,6 +70,7 @@ const getPlant = async (req, res) => {
   const { id } = req.params
   try {
     const plant = await Plant.findById(id)
+    const { url } = plant.image
     res.status(200).json(plant)
   } catch (err) {
     console.log(err)
@@ -80,19 +81,26 @@ const getPlant = async (req, res) => {
 // update a plant by id (PATCH)
 
 const editPlant = async (req, res) => {
-  const { id } = req.params
-  try {
-    const plant = await Plant.findOneAndUpdate({_id: id}, {...req.body}, {new: true, runValidators: true})
-    return res.status(200).json(plant)
-  } catch (err) {
-    console.log(err)
-    return res.status(400).json({message: `Could not find a plant with id of ${id}`})
-  }
+    const { id } = req.params
+    let { image } = req.body
+    try {
+        const uploadResponse = await cloudinary.uploader.upload(image, {
+        upload_preset: 'houseyourplants'
+        })
+    image = {
+        publicId: uploadResponse.public_id,
+        url: uploadResponse.secure_url
+    }
+    const plant = await Plant.findOneAndUpdate({_id: id}, {...req.body, image }, {new: true, runValidators: true})
+        return res.status(200).json(plant)
+    } catch (err) {
+        console.log(err)
+        return res.status(400).json({message: `Could not find a plant with id of ${id}`})
+    }
 
 }
 
 // delete a plant by id
-
 const deletePlant = async (req, res) => {
   const { id } = req.params
   try {

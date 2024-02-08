@@ -31,14 +31,14 @@ const PlantImage = ({ plantImage, plantImageError, handleImageUpload }) => {
         </div>
         )}
           {plantImage && (
-            <img src={plantImage} alt="plant" className="mt-4" />
+            <img src={plantImage} alt="plant" className="object-cover w-52 h-52" />
           )}
           {plantImageError && ( <p className="text-red-700 text-s text-center italic mt-2">{plantImageError}</p>)}
       </div>
   )
 }
 PlantImage.propTypes = {
-  plantImage: PropTypes.string.isRequired,
+  plantImage: PropTypes.object.isRequired,
   plantImageError: PropTypes.string.isRequired,
   handleImageUpload: PropTypes.func.isRequired
 }
