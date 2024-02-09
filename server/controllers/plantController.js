@@ -70,7 +70,6 @@ const getPlant = async (req, res) => {
   const { id } = req.params
   try {
     const plant = await Plant.findById(id)
-    const { url } = plant.image
     res.status(200).json(plant)
   } catch (err) {
     console.log(err)
@@ -83,15 +82,18 @@ const getPlant = async (req, res) => {
 const editPlant = async (req, res) => {
     const { id } = req.params
     let { image } = req.body
+
     try {
+        if (typeof(image) === 'string') {
         const uploadResponse = await cloudinary.uploader.upload(image, {
         upload_preset: 'houseyourplants'
         })
-    image = {
-        publicId: uploadResponse.public_id,
-        url: uploadResponse.secure_url
+        image = {
+            publicId: uploadResponse.public_id,
+            url: uploadResponse.secure_url
+        }
     }
-    const plant = await Plant.findOneAndUpdate({_id: id}, {...req.body, image }, {new: true, runValidators: true})
+    const plant = await Plant.findOneAndUpdate({_id: id}, {...req.body, image}, {new: true})
         return res.status(200).json(plant)
     } catch (err) {
         console.log(err)
