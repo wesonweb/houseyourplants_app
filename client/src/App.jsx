@@ -15,6 +15,7 @@ import Plant from './pages/PlantPage'
 import NotFound from './pages/NotFound'
 
 import './App.css'
+import EditPlantForm from './pages/EditPlant'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path="/about" element={<About />} />
       <Route path="/create" element={<CreatePlant />} />
       <Route path="/plants/:id" element={<Plant />} />
+      <Route path="/plants/edit/:id" element={<EditPlantForm />} />
       <Route path="*" element={<NotFound />} />
     </Route>
     )

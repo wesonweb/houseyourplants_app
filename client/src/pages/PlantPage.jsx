@@ -53,8 +53,6 @@ const handleDeletePlant = async () => {
   }
 }
 
-
-console.log('the plant id is', id);
   const { commonName, scientificName, careLevel, description, watering, feeding, humidity, temperature, toxicity, flowers, image  } = plant || {}
 
   // parse the description to render the html tags added by TinyMCE
@@ -69,7 +67,7 @@ console.log('the plant id is', id);
   return (
     <div>
       {loading && <Loader />}
-      <EditDeleteBar handleDeletePlant={handleDeletePlant}/>
+      <EditDeleteBar handleDeletePlant={handleDeletePlant} id={id}/>
       { error && <p>There was an error: {error.message}</p> }
       {loading && (
         <p>Loading...</p>

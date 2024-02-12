@@ -25,9 +25,9 @@ const PlantSchema = new Schema({
       required: true
     },
     lighting: {
-      type: [String],
-      enum: ['low', 'medium', 'direct'],
-      required: true
+        type: [String],
+        enum: ['low', 'medium', 'direct'],
+        required: true
     },
     feeding: {
       type: String,

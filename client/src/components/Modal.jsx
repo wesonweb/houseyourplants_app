@@ -49,6 +49,5 @@ export default Modal
 Modal.propTypes = {
   handleDeletePlant: PropTypes.func.isRequired,
   openModal: PropTypes.bool,
-  setOpenModal: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired
 }
