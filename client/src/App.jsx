@@ -14,6 +14,8 @@ import About from './pages/About'
 import CreatePlant from './pages/CreatePlant'
 import Plant from './pages/PlantPage'
 import NotFound from './pages/NotFound'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 import './App.css'
 import EditPlantForm from './pages/EditPlant'
@@ -26,6 +28,8 @@ const router = createBrowserRouter(
 			<Route path="/create" element={<CreatePlant />} />
 			<Route path="/plants/:id" element={<Plant />} />
 			<Route path="/plants/edit/:id" element={<EditPlantForm />} />
+			<Route path="/user/register" element={<Register />} />
+			<Route path="/user/login" element={<Login />} />
 			<Route path="*" element={<NotFound />} />
 		</Route>
 	)
