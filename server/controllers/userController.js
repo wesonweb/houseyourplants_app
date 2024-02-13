@@ -7,7 +7,17 @@ const createToken = (_id) => {
 
 // login user
 const loginUser = async (req, res) => {
-    res.json({message: 'login user route'})
+	const { email, password } = req.body
+	try {
+		const user = await User.login(email, password)
+		// create token
+		const token = createToken(user._id)
+		res.status(200).json({ email, token })
+		console.log('logged in', token, user)
+	} catch (error) {
+		console.log(error)
+		res.status(400).json({ message: error.message })
+	}
 }
 
 // register user
@@ -16,7 +26,7 @@ const registerUser = async (req, res) => {
     try {
         const user = await User.register(username, email, password)
 		const token = createToken(user._id)
-		console.log(token, user)
+		console.log('new user created', username, token, user)
         res.status(201).json({ username, email, token })
     } catch (error) {
         console.log(error)

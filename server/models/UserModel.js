@@ -33,7 +33,6 @@ userSchema.statics.register = async function (username, email, password) {
     if (!username || !email || !password) {
         throw Error('All fields must be completed')
     }
-
     if (username.length < 3) {
         throw Error('Username must be at least 3 characters long')
     }
@@ -59,4 +58,21 @@ userSchema.statics.register = async function (username, email, password) {
     return user
 }
 
+userSchema.statics.login = async function (email, password) {
+    // ensure all fields are completed
+    if (!email || !password) {
+        throw Error('All fields must be completed')
+    }
+    // find the user
+    const user = await this.findOne( { email })
+    if (!user) {
+        throw Error('User does not exist with this email')
+    }
+    // compare the password
+    const passwordMatch = await bcrypt.compare(password, user.password)
+    if (!passwordMatch) {
+        throw Error('Password is incorrect. Please try again')
+    }
+    return user
+}
 module.exports = mongoose.model('User', userSchema)
