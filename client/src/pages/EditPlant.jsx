@@ -12,6 +12,8 @@ import PlantFeedingAndWatering from '../components/CreatePlantForm/PlantFeedingA
 import PlantHumidityAndTemperature from '../components/CreatePlantForm/PlantHumidityAndTemperature'
 import PlantProblems from '../components/CreatePlantForm/PlantProblems'
 
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { MdCheck } from "react-icons/md"
 import { ImCancelCircle } from "react-icons/im"
 
@@ -115,15 +117,23 @@ const onSubmit = async (data) => {
     const submitUpdatedPlantData = async () => {
 
         try {
-        const response = await fetch(`http://localhost:4000/api/plants/edit/${id}`, {
-            method: 'PATCH',
-            body: JSON.stringify(plantData),
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-            }
-        })
+        const response = await toast.promise (
+            fetch(`http://localhost:4000/api/plants/edit/${id}`, {
+				method: 'PATCH',
+				body: JSON.stringify(plantData),
+				headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+				}
+			}),
+        {
+            pending: 'Updating plant...',
+            success: 'Plant updated successfully',
+            error: 'Something went wrong updating the plant. Please check your server logs'
+        }
+        )
         if (!response.ok) {
+            // toast.error('Something went wrong updating the plant. Please check your server logs')
             throw new Error('Something went wrong fetching a plant. Please check your server logs')
         }
         } catch (error) {
@@ -132,6 +142,7 @@ const onSubmit = async (data) => {
     }
     await submitUpdatedPlantData() // submit the data to the server
     navigate(`/plants/${id}`) // navigate to the plant page after the edits have been submitted
+
 }
 
 // store Tailwind classes in variables to make JSX leaner and easier to update
@@ -226,6 +237,7 @@ const btnSecondary="bg-transparent hover:bg-green-500 text-green-700 font-semibo
                 Save changes
                 </div>
             </button>
+
             </form>
         </>
     )
