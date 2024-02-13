@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const plantRoutes = require('./routes/plants')
+const userRoutes = require('./routes/user')
 
 
 dotenv.config()
@@ -16,6 +17,7 @@ app.use(express.urlencoded({extended: true, limit: '50mb'}))
 
 
 app.use('/api/plants', plantRoutes)
+app.use('/api/user', userRoutes)
 
 mongoose.connect(MONGO_URI)
   .then(() => {
