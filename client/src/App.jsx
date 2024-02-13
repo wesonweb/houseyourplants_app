@@ -5,6 +5,7 @@ import {  // only use for react-router-dom v6 and above
   RouterProvider
   } from 'react-router-dom'
 
+import { ToastContainer } from 'react-toastify'
 // layout imports
 import RootLayout from './layouts/RootLayout'
 // page imports
@@ -18,21 +19,24 @@ import './App.css'
 import EditPlantForm from './pages/EditPlant'
 
 const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path='/' element={<RootLayout />}>
-      <Route index element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/create" element={<CreatePlant />} />
-      <Route path="/plants/:id" element={<Plant />} />
-      <Route path="/plants/edit/:id" element={<EditPlantForm />} />
-      <Route path="*" element={<NotFound />} />
-    </Route>
-    )
-  )
+	createRoutesFromElements(
+		<Route path='/' element={<RootLayout />}>
+			<Route index element={<Home />} />
+			<Route path="/about" element={<About />} />
+			<Route path="/create" element={<CreatePlant />} />
+			<Route path="/plants/:id" element={<Plant />} />
+			<Route path="/plants/edit/:id" element={<EditPlantForm />} />
+			<Route path="*" element={<NotFound />} />
+		</Route>
+	)
+)
 
 function App() {
-  return (
-    <RouterProvider router = {router} />
-  )
+	return (
+		<>
+			<RouterProvider router = {router} />
+			<ToastContainer />
+		</>
+	)
 }
 export default App

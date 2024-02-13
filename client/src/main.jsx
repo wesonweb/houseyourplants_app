@@ -5,9 +5,9 @@ import { PlantsContextProvider } from './context/PlantContext'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <PlantsContextProvider>
-      <App />
-    </PlantsContextProvider>
-  </React.StrictMode>,
+	<React.StrictMode>
+		<PlantsContextProvider>
+			<App />
+		</PlantsContextProvider>
+	</React.StrictMode>,
 )
