@@ -8,6 +8,7 @@ const createToken = (_id) => {
 // login user
 const loginUser = async (req, res) => {
 	const { email, password } = req.body
+    console.log('loginUser', email, password)
 	try {
 		const user = await User.login(email, password)
 		// create token
@@ -26,7 +27,7 @@ const registerUser = async (req, res) => {
     try {
         const user = await User.register(username, email, password)
 		const token = createToken(user._id)
-		console.log('new user created', username, token, user)
+		console.log('new user created', token, user)
         res.status(201).json({ username, email, token })
     } catch (error) {
         console.log(error)

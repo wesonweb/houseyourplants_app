@@ -8,15 +8,13 @@ export const authReducer = (state, action) => {
     switch (action.type) {
         case 'LOGIN':
             return {
-                ...state,
                 user: action.payload
             }
         case 'LOGOUT':
             return {
-                ...state,
                 user: null
             }
-        default: state // return original state
+        default: return state // return original state
     }
 }
     // create the Provider component to provide the context to the rest of the application
