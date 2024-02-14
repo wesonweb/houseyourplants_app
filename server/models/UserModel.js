@@ -45,7 +45,7 @@ userSchema.statics.register = async function (username, email, password) {
         throw Error('Password is not strong enough. It must contain capital, numbers and special characters')
     }
     // ensure user does not already exist
-    const userExists = await this.findOne({ email })
+    const userExists = await this.findOne({ username })
     if (userExists) {
         throw Error ('User already exists')
     }

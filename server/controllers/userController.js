@@ -11,10 +11,12 @@ const loginUser = async (req, res) => {
     console.log('loginUser', email, password)
 	try {
 		const user = await User.login(email, password)
+        console.log('user logging in....🗡 ', user)
 		// create token
 		const token = createToken(user._id)
-		res.status(200).json({ email, token })
-		console.log('logged in', token, user)
+        // get the username and send it back with the response
+        const { username  } = user
+		res.status(200).json({ username, email, token })
 	} catch (error) {
 		console.log(error)
 		res.status(400).json({ message: error.message })

@@ -1,12 +1,13 @@
 import { useState } from 'react'
-
+import { useLogin } from '../hooks/useLogin'
 const Login = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+    const { login, isLoading, error } = useLogin()
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		console.log(email, password)
+		await login(email, password)
 	}
 
     const btnPrimary="bg-green-600 hover:bg-green-700 text-white font-bold mt-6 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:opacity-35"
@@ -39,7 +40,9 @@ const Login = () => {
                 focus:bg-white focus:outline-none"
                     />
                 </div>
-				<button className={btnPrimary}>Login</button>
+				<button disabled={isLoading} className={btnPrimary}>Login</button>
+                {isLoading && <p className="text-gray-500 mt-2">Loading...</p>}
+                {error && <p className="text-red-500 mt-2">{error}</p>}
 
 			</form>
 		</section>
