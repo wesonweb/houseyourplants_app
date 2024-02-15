@@ -12,6 +12,7 @@ import PlantFeedingAndWatering from '../components/CreatePlantForm/PlantFeedingA
 import PlantHumidityAndTemperature from '../components/CreatePlantForm/PlantHumidityAndTemperature'
 import PlantProblems from '../components/CreatePlantForm/PlantProblems'
 
+import { useAuthContext } from '../hooks/useAuthContext'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { MdCheck } from "react-icons/md"
@@ -29,6 +30,8 @@ const [showUploadButton, setShowUploadButton] = useState(true)
 
 const navigate = useNavigate()
 const { id } = useParams()
+const { user } = useAuthContext()
+
 let url = plant && plant?.image?.url || ''
 
 const {
@@ -46,9 +49,12 @@ const { fields, append, remove } = useFieldArray({
 
 useEffect(() => {
 const fetchPlant = async () => {
+    if (!user) {
+        return
+    }
     try {
-    const response = await fetch(`http://localhost:4000/api/plants/${id}`)
-    const plant = await response.json()
+        const response = await fetch(`http://localhost:4000/api/plants/${id}`)
+        const plant = await response.json()
     if(response.ok) {
         setPlant(plant)
         }
@@ -58,7 +64,7 @@ const fetchPlant = async () => {
     }
 }
 fetchPlant()
-}, [id])
+}, [id, user])
 
 useEffect(() => {
 if (plant) {
@@ -78,9 +84,9 @@ const file = e.target.files[0] // get the first image file in the array
         console.error('no file was provided')
         return
     } else {
-    transformImageToBase64(file)
-    setNewImageUploaded(true)// transform the image file into a base64 string
-    setShowUploadButton(true)
+        transformImageToBase64(file)
+        setNewImageUploaded(true)// transform the image file into a base64 string
+        setShowUploadButton(true)
     }
 }
 
@@ -95,9 +101,8 @@ const reader = new FileReader()
     }
 
     } else {
-    console.error('no file was provided');
+        console.error('no file was provided');
     return
-//setPlantImage('') // if no file was provided, set the state to an empty string
     }
 }
 
@@ -122,22 +127,23 @@ const onSubmit = async (data) => {
 				method: 'PATCH',
 				body: JSON.stringify(plantData),
 				headers: {
+                'Authorization': `Bearer ${user?.token}`,
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
 				}
 			}),
-        {
-            pending: 'Updating plant...',
-            success: 'Plant updated successfully',
-            error: 'Something went wrong updating the plant. Please check your server logs'
-        }
+            {
+                pending: 'Updating plant...',
+                success: 'Plant updated successfully',
+                error: 'Something went wrong updating the plant. Please check your server logs'
+            }
         )
         if (!response.ok) {
             // toast.error('Something went wrong updating the plant. Please check your server logs')
             throw new Error('Something went wrong fetching a plant. Please check your server logs')
-        }
+            }
         } catch (error) {
-        console.log(error)
+            console.log(error)
         }
     }
     await submitUpdatedPlantData() // submit the data to the server
@@ -156,7 +162,6 @@ const btnSecondary="bg-transparent hover:bg-green-500 text-green-700 font-semibo
         <>
             <h1 className="text-center text-4xl mt-4">Edit {plant?.commonName}</h1>
             <p className="text-center">{plant?.scientificName}</p>
-
             <form
             noValidate // prevent default browser validation
             className="bg-white shadow-md rounded px-8 pt-6 pb-8 my-8 w-full max-w-xlg m-auto"

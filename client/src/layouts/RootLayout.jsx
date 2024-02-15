@@ -1,14 +1,19 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import Header from '../components/Header/Header'
 import { useLogout } from '../hooks/useLogout'
+import { toast } from 'react-toastify'
 
 const RootLayout = () => {
 
+    const navigate = useNavigate()
     const { logout } = useLogout()
 
     const handleClick = (e) => {
         e.preventDefault()
         logout()
+        navigate('/')
+        toast.success('You have logged out successfully!')
+
     }
 	return (
 		<div>

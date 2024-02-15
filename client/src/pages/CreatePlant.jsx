@@ -12,6 +12,9 @@ import PlantFeedingAndWatering from '../components/CreatePlantForm/PlantFeedingA
 import PlantHumidityAndTemperature from '../components/CreatePlantForm/PlantHumidityAndTemperature'
 import PlantProblems from '../components/CreatePlantForm/PlantProblems'
 
+import { useAuthContext } from '../hooks/useAuthContext'
+
+
 import { toast } from 'react-toastify'
 
 const CreatePlant = () => {
@@ -19,6 +22,9 @@ const CreatePlant = () => {
     const [plantImage, setPlantImage] = useState('') // useState hook to manage image state instead of React Hook Form
     const [plantImageError, setPlantImageError] = useState('') // useState hook to manage image error state instead of React Hook Form
     const { plants, dispatch } = usePlantsContext()
+
+    const { user } = useAuthContext()
+
     const {
             register,
             handleSubmit,
@@ -50,11 +56,15 @@ const CreatePlant = () => {
         }
     }
     const onSubmit = async (data) => {
+        if (!user) {
+            console.error('You must be an admin to create a plant. Please log in as an admin and try again.')
+            return
+        }
         if (!plantImage) {
             const plantImageError = 'You must provide an image'
             setPlantImageError(plantImageError)
             console.error(plantImageError)
-        return
+            return
         }
         const plantData = {
             ...data, // spread the data object into a new object
@@ -66,6 +76,7 @@ const CreatePlant = () => {
                     method: 'POST',
                     body: JSON.stringify(plantData),
                     headers: {
+                    'Authorization': `Bearer ${user.token}`,
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                     }
@@ -94,7 +105,10 @@ const CreatePlant = () => {
     const btnPrimary="bg-green-600 hover:bg-green-700 text-white font-bold mt-4 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:opacity-35"
     const btnSecondary="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
     return (
+
         <>
+        {user?.username === 'wes' && (
+            <>
             <h1 className="text-center text-4xl mt-4">Create a plant</h1>
             <p className="text-center mt-3">There are currently <strong>{plants && plants.length}</strong> plants in the database</p>
             <form
@@ -170,7 +184,9 @@ const CreatePlant = () => {
                     Create plant
                 </button>
             </form>
+            </>)}
         </>
+
     )
 }
 

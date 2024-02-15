@@ -6,6 +6,8 @@ import parse from 'html-react-parser'
 import Loader from '../components/Loader/Loader'
 import EditDeleteBar from '../components/EditDeleteBar/EditDeleteBar'
 
+import { useAuthContext } from '../hooks/useAuthContext'
+
 export default function PlantPage() {
 
 	const [plant, setPlant] = useState(null)
@@ -13,6 +15,7 @@ export default function PlantPage() {
 	const [error, setError] = useState(null)
 
 	const { id } = useParams()
+    const { user } = useAuthContext()
 
 	useEffect(() => {
 	const fetchPlant = async () => {
@@ -39,6 +42,7 @@ export default function PlantPage() {
 		const response = await fetch(`http://localhost:4000/api/plants/${id}`, {
 			method: 'DELETE',
 			headers: {
+            'Authorization': `Bearer ${user?.token}`,
 			'Content-Type': 'application/json'
 			}
 		})
@@ -67,7 +71,9 @@ export default function PlantPage() {
 	return (
 		<div>
 			{loading && <Loader />}
-			<EditDeleteBar handleDeletePlant={handleDeletePlant} id={id}/>
+            {user?.username==='wes' && (
+                <EditDeleteBar handleDeletePlant={handleDeletePlant} id={id}/>
+            )}
 			{ error && <p>There was an error: {error.message}</p> }
 			{loading && (
 				<p>Loading...</p>

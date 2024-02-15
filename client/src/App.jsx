@@ -2,8 +2,10 @@ import {  // only use for react-router-dom v6 and above
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-  RouterProvider
+  RouterProvider,
   } from 'react-router-dom'
+
+import Protected from './routes/protected'
 
 import { ToastContainer } from 'react-toastify'
 // layout imports
@@ -21,23 +23,25 @@ import './App.css'
 import EditPlantForm from './pages/EditPlant'
 
 const router = createBrowserRouter(
-	createRoutesFromElements(
-		<Route path='/' element={<RootLayout />}>
+    createRoutesFromElements(
+        <Route path='/' element={<RootLayout />}>
 			<Route index element={<Home />} />
 			<Route path="/about" element={<About />} />
-			<Route path="/create" element={<CreatePlant />} />
 			<Route path="/plants/:id" element={<Plant />} />
-			<Route path="/plants/edit/:id" element={<EditPlantForm />} />
 			<Route path="/user/register" element={<Register />} />
 			<Route path="/user/login" element={<Login />} />
+            <Route element={<Protected />} >
+                <Route path="/create" element={<CreatePlant />} />
+                <Route path="/plants/edit/:id" element={<EditPlantForm />} />
+            </Route>
 			<Route path="*" element={<NotFound />} />
 		</Route>
 	)
 )
 
 function App() {
-	return (
-		<>
+    return (
+        <>
 			<RouterProvider router = {router} />
 			<ToastContainer />
 		</>

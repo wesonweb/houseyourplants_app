@@ -1,13 +1,18 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useLogin } from '../hooks/useLogin'
+import { toast } from 'react-toastify'
 const Login = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
     const { login, isLoading, error } = useLogin()
-
+    let navigate = useNavigate()
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		await login(email, password)
+        navigate('/')
+        toast.success('You have logged in successfully!')
+
 	}
 
     const btnPrimary="bg-green-600 hover:bg-green-700 text-white font-bold mt-6 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:opacity-35"
