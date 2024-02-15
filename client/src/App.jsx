@@ -5,7 +5,7 @@ import {  // only use for react-router-dom v6 and above
   RouterProvider,
   } from 'react-router-dom'
 
-import Protected from './routes/protected'
+import { Protected, LoginProtected, RegisterProtected } from './routes/protected'
 
 import { ToastContainer } from 'react-toastify'
 // layout imports
@@ -28,8 +28,12 @@ const router = createBrowserRouter(
 			<Route index element={<Home />} />
 			<Route path="/about" element={<About />} />
 			<Route path="/plants/:id" element={<Plant />} />
-			<Route path="/user/register" element={<Register />} />
-			<Route path="/user/login" element={<Login />} />
+            <Route element={<RegisterProtected />} >
+                <Route path="/user/register" element={<Register />} />
+            </Route>
+            <Route element={<LoginProtected />} >
+                <Route path="/user/login" element={<Login />} />
+            </Route>
             <Route element={<Protected />} >
                 <Route path="/create" element={<CreatePlant />} />
                 <Route path="/plants/edit/:id" element={<EditPlantForm />} />
