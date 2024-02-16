@@ -69,7 +69,7 @@ export default function PlantPage() {
 
 
 	return (
-		<div>
+		<div className="bg-white container mx-auto p-4">
 			{loading && <Loader />}
             {user?.username==='wes' && (
                 <EditDeleteBar handleDeletePlant={handleDeletePlant} id={id}/>

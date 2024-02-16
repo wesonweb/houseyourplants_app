@@ -29,7 +29,7 @@ const Home = () => {
 
   return (
     <>
-      <article className="plants">
+      <article className="container mx-auto plants">
         <h1 className="text-4xl">Houseyourplants</h1>
         <p>Find the plant that is perfect for your home</p>
           {isLoading && <Loader />}

@@ -1,29 +1,29 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useLogin } from '../hooks/useLogin'
 import { toast } from 'react-toastify'
 const Login = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
     const { login, isLoading, error } = useLogin()
-    let navigate = useNavigate()
-	const handleSubmit = async (e) => {
+
+    const handleSubmit = async (e) => {
 		e.preventDefault()
 		await login(email, password)
-        navigate('/')
-        toast.success('You have logged in successfully!')
-
+        if (error) {
+            toast.error('Please ensure your email and password are correct')
+            return
+        }
 	}
 
     const btnPrimary="bg-green-600 hover:bg-green-700 text-white font-bold mt-6 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:opacity-35"
 
 	return (
-		<section className="flex flex-col md:flex-row h-screen items-center justify-center bg-gray-100">
+		<section className="flex flex-col md:flex-row h-screen items-center md:justify-center">
 			<form
 				onSubmit={handleSubmit}
                 className="w-full max-w-md mt-6 bg-white p-8 rounded-lg"
 				>
-				<h1 className="text-2xl">Login</h1>
+				<h1 className="text-2xl">Sign in to your account</h1>
                 <div className="mt-4">
                     <label className="block text-gray-700">Email:</label>
                     <input

@@ -6,7 +6,7 @@ function PlantCard({ plant }) {
   const { commonName, scientificName, _id } = plant
   return (
     <article
-      className="container mt-4 bg-white shadow hover:shadow-md rounded">
+      className="container bg-white shadow hover:shadow-md rounded h-96">
       <Link to={`/plants/${_id}`} className="block h-full p-4">
       <h1 className="text-2xl mb-2">{commonName}</h1>
       <span><em>{scientificName}</em></span>

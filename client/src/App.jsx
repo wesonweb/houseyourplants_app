@@ -7,7 +7,6 @@ import {  // only use for react-router-dom v6 and above
 
 import { Protected, LoginProtected, RegisterProtected } from './routes/protected'
 
-import { ToastContainer } from 'react-toastify'
 // layout imports
 import RootLayout from './layouts/RootLayout'
 // page imports
@@ -47,7 +46,6 @@ function App() {
     return (
         <>
 			<RouterProvider router = {router} />
-			<ToastContainer />
 		</>
 	)
 }

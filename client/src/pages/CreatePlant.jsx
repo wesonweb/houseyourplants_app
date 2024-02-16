@@ -24,6 +24,7 @@ const CreatePlant = () => {
     const { plants, dispatch } = usePlantsContext()
 
     const { user } = useAuthContext()
+    console.log(user);
 
     const {
             register,

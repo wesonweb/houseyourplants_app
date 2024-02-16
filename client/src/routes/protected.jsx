@@ -7,12 +7,13 @@ const Protected = () => {
 
     const { user } = useAuthContext()
     const { token } = user || {}
-    return token && user.username === 'wes' ? <Outlet /> : <Navigate to="/" replace></Navigate>
+    return token && user.username === 'wes' && user.email === 'wesonweb@gmail.com' ? <Outlet /> : <Navigate to="/" replace></Navigate>
 }
 
 const LoginProtected = () => {
     const { user } = useAuthContext()
-    return user ? <Navigate to="/" replace></Navigate> : <Login />
+    const { token } = user || {}
+    return token ? <Navigate to="/" replace></Navigate> : <Login />
 }
 
 const RegisterProtected = () => {
