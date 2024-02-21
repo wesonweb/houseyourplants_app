@@ -24,8 +24,8 @@ export const useLogin = () => {
 		if (response.ok) {
             const { username, email, role, token } = data
 			localStorage.setItem('user', JSON.stringify({ role, username, email, token })) // store the token in local storage
-			dispatch({type: 'LOGIN', payload: { username, email, role, token  }}) // dispatch the action to the reducer
-			setIsLoading(false)
+			dispatch({type: 'LOGIN', payload: { username, email, role, token  }})
+            setIsLoading(false)
 		}
 	}
 	return { login, isLoading, error}

@@ -42,7 +42,7 @@ userSchema.statics.register = async function (username, email, password) {
     }
     // ensure password is strong and at least 8 characters
     if (!validator.isStrongPassword(password, { minLength: 8 })) {
-        throw Error('Password is not strong enough. It must contain capital, numbers and special characters')
+        throw Error('Password is not strong enough. It must contain capital, number and special characters')
     }
     // ensure user does not already exist
     const userExists = await this.findOne({ username })
@@ -76,7 +76,6 @@ userSchema.statics.login = async function (email, password) {
         throw Error('Password is incorrect. Please try again')
     }
 
-    console.log('user logging in 🍎 ... ', user.username, '... with role:', user.role);
     return user
 }
 module.exports = mongoose.model('User', userSchema)

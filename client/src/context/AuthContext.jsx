@@ -17,6 +17,7 @@ export const authReducer = (state, action) => {
         default: return state // return original state
     }
 }
+
 // create the Provider component to provide the context to the rest of the application
 export const AuthContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, {
@@ -24,7 +25,6 @@ export const AuthContextProvider = ({ children }) => {
     })
     useEffect( () => {
         const user = JSON.parse(localStorage.getItem('user'))
-
         if (user) {
             dispatch({ type: 'LOGIN', payload: user })
         }
