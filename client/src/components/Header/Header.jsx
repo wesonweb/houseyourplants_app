@@ -7,6 +7,7 @@ import logo from '../../assets/logo.png'
 const Header = ({ handleClick } ) => {
 
     const { user } = useAuthContext()
+    const isAdmin = user?.role === 'admin' ? true : false
     return (
 		<header className="bg-sky-100">
             {user && (
@@ -22,7 +23,7 @@ const Header = ({ handleClick } ) => {
 				</NavLink>
                 <div>
                     <ul className="flex items-center gap-6 grow justify-end flex-wrap max-sm:mt-5">
-                        {user?.username === 'wes' && user?.email === 'wesonweb@gmail.com' && (
+                            { isAdmin &&
                             <li>
                             <NavLink to="/create"
                                 className="flex items-center  bg-emerald-400 px-4 py-1 rounded-full hover:bg-emerald-700 hover:text-white "
@@ -33,7 +34,7 @@ const Header = ({ handleClick } ) => {
                                 new plant
                             </NavLink>
                             </li>
-                        )}
+                            }
                         <li>
                             <NavLink to="/about" >
                                 about

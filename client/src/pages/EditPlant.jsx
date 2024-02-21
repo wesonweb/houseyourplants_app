@@ -73,7 +73,6 @@ if (plant) {
 }
 }, [plant, reset])
 
-
 // useState hook to manage image error state instead of React Hook Form
 
 // const { plants, dispatch } = usePlantsContext()
@@ -135,6 +134,7 @@ const onSubmit = async (data) => {
             {
                 pending: 'Updating plant...',
                 success: 'Plant updated successfully',
+                // error: 'Something went wrong updating the plant. Please check your server logs'
                 error: 'Something went wrong updating the plant. Please check your server logs'
             }
         )
@@ -159,7 +159,7 @@ const errorMessageStyle = "text-red-700 text-s italic mt-1"
 const btnPrimary="bg-green-600 hover:bg-green-700 text-white font-bold mt-4 py-2 px-4 rounded"
 const btnSecondary="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
     return (
-        <>
+        <article className="container mx-auto">
             <h1 className="text-center text-4xl mt-4">Edit {plant?.commonName}</h1>
             <p className="text-center">{plant?.scientificName}</p>
             <form
@@ -244,7 +244,7 @@ const btnSecondary="bg-transparent hover:bg-green-500 text-green-700 font-semibo
             </button>
 
             </form>
-        </>
+        </article>
     )
 }
 

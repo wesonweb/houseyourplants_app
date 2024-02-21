@@ -1,6 +1,6 @@
 const { createPlant, getPlants, getPlant, editPlant, deletePlant } = require('../controllers/plantController')
 const express = require('express')
-const requireAuth = require('../middleware/requireAuth')
+const { requireAuth } = require('../middlewares/requireAuth')
 
 const router = express.Router()
 
@@ -11,14 +11,13 @@ router.get('/', getPlants)
 router.get('/:id', getPlant)
 
 // require authentication for the following routes
-router.use(requireAuth)
 
 // POST a single plant (create)
-router.post('/new-plant', createPlant)
+router.post('/new-plant', requireAuth, createPlant)
 
 // DELETE a single plant
-router.delete('/:id', deletePlant)
+router.delete('/:id', requireAuth, deletePlant)
 
 // PUT a single plant (update)
-router.patch('/edit/:id', editPlant)
+router.patch('/edit/:id', requireAuth,  editPlant)
 module.exports = router

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useLogin } from '../hooks/useLogin'
-import { toast } from 'react-toastify'
 const Login = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -8,11 +7,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
 		e.preventDefault()
-		await login(email, password)
-        if (error) {
-            toast.error('Please ensure your email and password are correct')
-            return
-        }
+        await login(email, password)
 	}
 
     const btnPrimary="bg-green-600 hover:bg-green-700 text-white font-bold mt-6 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:opacity-35"

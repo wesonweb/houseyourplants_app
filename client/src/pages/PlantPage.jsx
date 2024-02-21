@@ -16,6 +16,7 @@ export default function PlantPage() {
 
 	const { id } = useParams()
     const { user } = useAuthContext()
+    const isAdmin = user?.role === 'admin' ? true : false
 
 	useEffect(() => {
 	const fetchPlant = async () => {
@@ -71,9 +72,7 @@ export default function PlantPage() {
 	return (
 		<div className="bg-white container mx-auto p-4">
 			{loading && <Loader />}
-            {user?.username==='wes' && (
-                <EditDeleteBar handleDeletePlant={handleDeletePlant} id={id}/>
-            )}
+            {isAdmin && <EditDeleteBar handleDeletePlant={handleDeletePlant} id={id}/> }
 			{ error && <p>There was an error: {error.message}</p> }
 			{loading && (
 				<p>Loading...</p>

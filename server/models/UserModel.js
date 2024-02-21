@@ -65,14 +65,18 @@ userSchema.statics.login = async function (email, password) {
     }
     // find the user
     const user = await this.findOne( { email })
+
     if (!user) {
         throw Error('User does not exist with this email')
     }
+
     // compare the password
     const passwordMatch = await bcrypt.compare(password, user.password)
     if (!passwordMatch) {
         throw Error('Password is incorrect. Please try again')
     }
+
+    console.log('user logging in 🍎 ... ', user.username, '... with role:', user.role);
     return user
 }
 module.exports = mongoose.model('User', userSchema)

@@ -24,7 +24,6 @@ const CreatePlant = () => {
     const { plants, dispatch } = usePlantsContext()
 
     const { user } = useAuthContext()
-    console.log(user);
 
     const {
             register,
@@ -108,7 +107,6 @@ const CreatePlant = () => {
     return (
 
         <>
-        {user?.username === 'wes' && (
             <>
             <h1 className="text-center text-4xl mt-4">Create a plant</h1>
             <p className="text-center mt-3">There are currently <strong>{plants && plants.length}</strong> plants in the database</p>
@@ -185,7 +183,7 @@ const CreatePlant = () => {
                     Create plant
                 </button>
             </form>
-            </>)}
+            </>
         </>
 
     )

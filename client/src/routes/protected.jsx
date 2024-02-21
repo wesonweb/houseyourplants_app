@@ -3,11 +3,13 @@ import { useAuthContext } from '../hooks/useAuthContext'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 
-const Protected = () => {
 
+
+const Protected = () => {
     const { user } = useAuthContext()
-    const { token } = user || {}
-    return token && user.username === 'wes' && user.email === 'wesonweb@gmail.com' ? <Outlet /> : <Navigate to="/" replace></Navigate>
+    const { role } = user || {}
+    const isAdmin = role === 'admin' ? true : false
+    return isAdmin ? <Outlet /> : <Navigate to="/" replace></Navigate>
 }
 
 const LoginProtected = () => {
