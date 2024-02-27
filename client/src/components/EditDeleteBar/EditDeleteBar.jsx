@@ -17,16 +17,18 @@ export default function EditDeleteBar({ handleDeletePlant, id}) {
     <>
       <div className="flex justify-end">
         <Link to={`/plants/edit/${id}`}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 me-3 rounded">
+            aria-label="edit plant"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 me-3 rounded">
           <div className="flex items-center">
             <MdModeEdit className="me-2" />
-              Edit
-          </div>
+                Edit
+            </div>
         </Link>
         <button
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-          onClick={toggleModal}
-          >
+            aria-label="delete plant"
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            onClick={toggleModal}
+        >
           <div className="flex items-center">
             <FaTrash className="me-2" />
               Delete

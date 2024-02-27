@@ -82,22 +82,25 @@ const getPlant = async (req, res) => {
 const editPlant = async (req, res) => {
     const { id } = req.params
     let { image } = req.body
-
-    try {
-        if (typeof(image) === 'string') {
-        const uploadResponse = await cloudinary.uploader.upload(image, {
-        upload_preset: 'houseyourplants'
-        })
-        image = {
-            publicId: uploadResponse.public_id,
-            url: uploadResponse.secure_url
+    if (req.user.role === 'admin') {
+        try {
+            if (typeof(image) === 'string') {
+            const uploadResponse = await cloudinary.uploader.upload(image, {
+            upload_preset: 'houseyourplants'
+            })
+            image = {
+                publicId: uploadResponse.public_id,
+                url: uploadResponse.secure_url
+            }
         }
-    }
-    const plant = await Plant.findOneAndUpdate({_id: id}, {...req.body, image}, {new: true})
-        return res.status(200).json(plant)
-    } catch (err) {
-        console.log(err)
-        return res.status(400).json({message: `Could not find a plant with id of ${id}`})
+        const plant = await Plant.findOneAndUpdate({_id: id}, {...req.body, image}, {new: true})
+            return res.status(200).json(plant)
+        } catch (err) {
+            console.log(err)
+            return res.status(400).json({message: `Could not find a plant with id of ${id}`})
+        }
+    }   else {
+        return res.status(401).json({message: `You are not authorized to do that`})
     }
 
 }
