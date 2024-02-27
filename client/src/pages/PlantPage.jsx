@@ -6,6 +6,10 @@ import parse from 'html-react-parser'
 import Loader from '../components/Loader/Loader'
 import EditDeleteBar from '../components/EditDeleteBar/EditDeleteBar'
 
+import { MdCheckCircle, MdPets } from "react-icons/md"
+import { IoMdAlert } from "react-icons/io"
+import { LuFlower } from "react-icons/lu"
+
 import { useAuthContext } from '../hooks/useAuthContext'
 
 export default function PlantPage() {
@@ -67,6 +71,9 @@ export default function PlantPage() {
 	const position = plant && plant.position
 	const problems = plant && plant.problems
 	const imageURL = image && image.url
+    console.log(plant);
+    const hard = careLevel === 'hard'
+    const safe = !toxicity
 
 
 	return (
@@ -79,8 +86,8 @@ export default function PlantPage() {
 			)}
 			{plant && !error && (
 			<article>
-				<h1 className="text-3xl">{commonName}</h1>
-				<p>{scientificName}</p>
+				<h1 className="text-4xl tracking-wide mb-0">{commonName}</h1>
+				<p><em>{scientificName}</em></p>
 				<p>This plant is <span className="text-lg">{careLevel}</span> to look after</p>
 				<p className="break-words">Image url: {imageURL}</p>
 				<h2 className="text-xl">Description</h2>
@@ -120,6 +127,44 @@ export default function PlantPage() {
 					: <span className="text-red-500">This plant does not flower</span>
 					}
 				</p>
+
+
+                <div className="mb-1 ms-1 text-sm flex gap-2 absolute bottom-0">
+                <span className={`${hard ? 'bg-orange-600' : 'bg-green-600'} rounded px-3 py-0.5  items-center text-white w-auto inline-block`}>
+                    <div className="flex items-center">
+                        {hard
+                            ? <IoMdAlert className="me-1" />
+                            : <MdCheckCircle className="me-1" />
+                        }
+
+                        <span>{careLevel}</span>
+                    </div>
+                </span>
+                {safe && (
+                    <span className={`bg-violet-600 rounded px-3 py-0.5  items-center text-white w-auto inline-block`}>
+                        <div className="flex items-center">
+                            {safe
+                                ? <MdPets className="me-1" />
+                                : null
+                            }
+
+                            <span>pet friendly</span>
+                        </div>
+                    </span>
+                )}
+                {flowers && (
+                    <span className={`bg-rose-600 rounded px-3 py-0.5  items-center text-white w-auto inline-block`}>
+                        <div className="flex items-center">
+                            {flowers
+                                ? <LuFlower className="me-1" />
+                                : null
+                            }
+
+                            <span>flowers</span>
+                        </div>
+                    </span>
+                )}
+            </div>
 			</article>
 		)}
 	</div>

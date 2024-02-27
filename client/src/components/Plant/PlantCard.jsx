@@ -1,18 +1,36 @@
 import { Link } from 'react-router-dom'
 import { PropTypes } from 'prop-types'
 
-function PlantCard({ plant }) {
 
-  const { commonName, scientificName, _id } = plant
-  return (
-    <article
-      className="container bg-white shadow hover:shadow-md rounded h-96">
-      <Link to={`/plants/${_id}`} className="block h-full p-4">
-      <h1 className="text-2xl mb-2">{commonName}</h1>
-      <span><em>{scientificName}</em></span>
-      </Link>
-    </article>
-  )
+function PlantCard({ plant }) {
+    const { commonName, _id, scientificName } = plant
+    console.log(plant);
+
+  const { url } = plant && plant.image
+
+    return (
+        <article
+            style={{backgroundImage: `url(${url})`  }   }
+            className={
+            `container bg-cover bg-center bg-no-repeat
+            shadow hover:shadow-lg rounded h-96 flex flex-col
+            transition-all duration-300 relative
+            `}
+            >
+            <Link to={`/plants/${_id}`} className="flex flex-col h-full">
+                <div
+                    className="flex-col flex-1 py-1 px-3
+                        bg-gradient-to-t from-slate-100 via-slate-100 to-slate-50 absolute bottom-0 w-full h-16
+                    "
+                >
+                    <h1 className="text-xl font-semibold mb-0 tracking-wide">{commonName}</h1>
+                    <span className="text-slate-600 text-base"><em>{scientificName}</em></span>
+                </div>
+
+
+            </Link>
+        </article>
+    )
 }
 
 PlantCard.propTypes = {
