@@ -4,11 +4,16 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import parse from 'html-react-parser'
 import Loader from '../components/Loader/Loader'
+import './PlantPage.css'
 import EditDeleteBar from '../components/EditDeleteBar/EditDeleteBar'
 
-import { MdCheckCircle, MdPets } from "react-icons/md"
+import { BsHouseHeartFill } from "react-icons/bs"
+import { FaTemperatureLow } from "react-icons/fa"
 import { IoMdAlert } from "react-icons/io"
+import { LiaWineBottleSolid } from "react-icons/lia";
 import { LuFlower } from "react-icons/lu"
+import { MdCheckCircle, MdPets, MdReportProblem, MdOutlineWbSunny, MdWaves } from "react-icons/md"
+import { WiRaindrop } from "react-icons/wi"
 
 import { useAuthContext } from '../hooks/useAuthContext'
 
@@ -67,104 +72,154 @@ export default function PlantPage() {
   // parse the description to render the html tags added by TinyMCE
 	const parsedDescription = parse(`${description}`)
 
-	const lighting = plant && plant.lighting
-	const position = plant && plant.position
-	const problems = plant && plant.problems
+	const lighting = plant?.lighting
+	const position = plant?.position
+	const problems = plant?.problems
 	const imageURL = image && image.url
-    console.log(plant);
-    const hard = careLevel === 'hard'
-    const safe = !toxicity
-
+    const careLevelHard = careLevel === 'hard'
+    const isToxic = toxicity === true
 
 	return (
-		<div className="bg-white container mx-auto p-4">
+		<div className="container bg-sky-50 rounded md:shadow-md md:m-5 xlg:w-2/3 md:mx-auto p-4">
 			{loading && <Loader />}
             {isAdmin && <EditDeleteBar handleDeletePlant={handleDeletePlant} id={id}/> }
 			{ error && <p>There was an error: {error.message}</p> }
 			{loading && (
-				<p>Loading...</p>
+				<Loader />
 			)}
 			{plant && !error && (
 			<article>
-				<h1 className="text-4xl tracking-wide mb-0">{commonName}</h1>
-				<p><em>{scientificName}</em></p>
-				<p>This plant is <span className="text-lg">{careLevel}</span> to look after</p>
-				<p className="break-words">Image url: {imageURL}</p>
-				<h2 className="text-xl">Description</h2>
-				{parsedDescription}
-				<h2 className="text-xl">Watering instructions</h2>
-				<p>{watering}</p>
-				<h2 className="text-xl">Feeding instructions</h2>
-				<p>{feeding}</p>
-				<h2 className="text-xl">Humidity instructions</h2>
-				<p>{humidity}</p>
-				<h2 className="text-xl">Ideal temperature range</h2>
-				<p>{temperature} &#8451;</p>
-				<h2 className="text-xl">Lighting</h2>
-				<div>{lighting?.map(light => (
-					<p key={light}>{light}</p>
-					))}
-				</div>
-				<h2 className="text-xl">Position</h2>
-				<div>{position?.map(p => (
-					<p key={p}>{p}</p>
-					))}
-				</div>
-				<h2 className="text-xl">Problems</h2>
-				<div>{problems?.map(issue => (
-					<p key={issue.problem}>{issue.problem}</p>
-					))}
-				</div>
-				<h2 className="text-xl">Toxicity</h2>
-				<p>{toxicity
-					? <span className="text-red-500">This plant is poisonous to pets</span>
-					: <span className="text-green-500">This plant is safe for pets</span>
-					}
-				</p>
-				<h2 className="text-xl">Flowers</h2>
-				<p>{flowers
-					? <span className="text-green-500">This plant flowers</span>
-					: <span className="text-red-500">This plant does not flower</span>
-					}
-				</p>
+                <section className="md:w-10/12 md:pt-6 mx-auto xl:w-9/12">
+                    <h1 className="text-3xl md:text-5xl tracking-wide mb-0">{commonName}</h1>
+                    <p><em className="md:text-lg text-slate-600 tracking-wide">{scientificName}</em></p>
+                    <img src={imageURL} alt={commonName} className="my-4 md:my-8 object-cover w-full" />
+                </section>
 
-
-                <div className="mb-1 ms-1 text-sm flex gap-2 absolute bottom-0">
-                <span className={`${hard ? 'bg-orange-600' : 'bg-green-600'} rounded px-3 py-0.5  items-center text-white w-auto inline-block`}>
-                    <div className="flex items-center">
-                        {hard
-                            ? <IoMdAlert className="me-1" />
-                            : <MdCheckCircle className="me-1" />
-                        }
-
-                        <span>{careLevel}</span>
-                    </div>
-                </span>
-                {safe && (
-                    <span className={`bg-violet-600 rounded px-3 py-0.5  items-center text-white w-auto inline-block`}>
+                <div className="my-6 ms-1 text-sm flex flex-wrap md:justify-center gap-2 md:w-6/8 md:mx-auto md:my-12 lg:w-7/8">
+                    <div className={`${careLevelHard ? 'text-amber-700' : 'text-teal-600'} border shadow rounded px-5 py-2  items-center  w-auto inline-block`}>
                         <div className="flex items-center">
-                            {safe
-                                ? <MdPets className="me-1" />
-                                : null
+                            {careLevelHard
+                                ? <IoMdAlert size={22} className="me-2 text-amber-800" />
+                                : <MdCheckCircle size={22} className="me-2 text-teal-700" />
                             }
-
-                            <span>pet friendly</span>
+                            <span className="text-lg">{careLevel} to care for</span>
                         </div>
-                    </span>
-                )}
-                {flowers && (
-                    <span className={`bg-rose-600 rounded px-3 py-0.5  items-center text-white w-auto inline-block`}>
+                    </div>
+                    <div className={`border shadow rounded px-5 py-2  items-center text-red-800 w-auto inline-block`}>
+                        <div className="flex items-center">
+                            {isToxic
+                                ? <MdReportProblem size={22} className="me-3 text-red-600"/>
+                                : <MdPets size={22} className="me-2 text-violet-600" />
+                            }
+							{isToxic
+								? <span className="text-lg text-red-600">not pet friendly</span>
+								: <span className="text-lg text-violet-600">pet friendly</span>
+							}
+                        </div>
+                    </div>
+                    <div className={`border shadow rounded px-5 py-2 items-center text-orange-600 w-auto inline-block`}>
+                        <div className="flex items-center">
+                            <FaTemperatureLow size={22} className="me-2" />
+                            <span className="text-lg">{temperature} &#8451;</span>
+                        </div>
+                    </div>
+					{flowers && (
+                    <div className={`rounded px-5 py-2 border shadow items-center text-rose-600 w-auto inline-block`}>
                         <div className="flex items-center">
                             {flowers
-                                ? <LuFlower className="me-1" />
+                                ? <LuFlower size={22} className="me-2" />
                                 : null
                             }
 
-                            <span>flowers</span>
+                            <span className="text-lg">flowers</span>
                         </div>
-                    </span>
+                    </div>
+
                 )}
-            </div>
+                    <div className={`rounded px-5 py-2 border shadow items-center text-blue-600 w-auto inline-block`}>
+                        <div className="flex items-center">
+                            <BsHouseHeartFill size={22} className="me-2" />
+                            <div className="flex flex-wrap items-center">
+                                <span className="text-lg me-2">place it: </span>
+                                <div className="flex">{position?.map(spot => (
+                                    <p
+                                        key={spot}
+                                        className="mb-0 me-2 text-lg">
+                                        {spot}
+                                    </p>
+                                    ))}
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* <div className={`bg-yellow-500  rounded px-5 py-2 items-center text-white w-auto inline-block`}> */}
+                    <div className={` shadow borde rounded px-5 py-2 items-center text-yellow-700 w-auto inline-block`}>
+                        <div className="flex items-center">
+                            <MdOutlineWbSunny size={24} className="me-2 text-yellow-500" />
+                            <div className="flex flex-wrap items-center">
+                                <span className="text-lg me-2">light: </span>
+                                <div className="flex">{lighting?.map(light => (
+                                    <p
+                                        key={light}
+                                        className="mb-0 me-2 text-lg">
+                                        {light}
+                                    </p>
+                                    ))}
+                                    {/* <span className="text-lg">light</span> */}
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <section className="plant__description md:text-lg md:w-2/3 lg:w-1/2 mx-auto">
+                    {parsedDescription}
+                </section>
+
+				<div className="gap-3 md:mx-auto md:w-2/3 lg:w-1/2">
+
+                    <section className="basis-6/12 grow-1">
+                        <div className="flex items-center my-6">
+                        <WiRaindrop size={32} className="text-sky-500 me-2 " />
+                            <h2 className="text-xl mb-0">Watering</h2>
+                        </div>
+                            <p className="mb-0">{watering}</p>
+                    </section>
+						<section className="basis-3/12">
+							<div className="flex items-center my-6">
+							<LiaWineBottleSolid size={32} className="text-green-700 me-2" />
+								<h2 className="text-xl mb-0">Feeding</h2>
+							</div>
+						<p>{feeding}</p>
+						</section>
+
+						<section className="basis-3/12">
+						<div className="flex items-center my-6">
+							<MdWaves size={32} className="text-zinc-400 me-2" />
+								<h2 className="text-xl mb-0">Humidity</h2>
+							</div>
+							<p>{humidity}</p>
+						</section>
+				</div>
+
+				<section className="my-6 md:my-12 md:mx-auto lg:w-3/4 lg:justify-evenly">
+                    <div className="flex items-center md:justify-center my-4">
+                        <IoMdAlert
+                            className="text-red-600 me-2"
+                            size={28}
+                        />
+                        <h2 className="text-xl mb-0">Issues with the {commonName}</h2>
+                    </div>
+                    <div className="flex flex-wrap gap-6 justify-center">
+                        {problems?.map(issue => (
+                        <p key={issue.problem} className="md:basis-5/12 grow-1">
+                            {issue.problem}
+                        </p>
+                        ))}
+                    </div>
+                </section>
+
 			</article>
 		)}
 	</div>
