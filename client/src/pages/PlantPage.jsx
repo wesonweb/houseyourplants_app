@@ -199,22 +199,6 @@ export default function PlantPage() {
                     </section>
 				</div>
 
-				{/* <section className="my-6 md:my-12 md:mx-auto lg:w-8/12 lg:justify-evenly xl:w-10/12">
-                    <div className="flex items-center md:justify-center my-4">
-                        <IoMdAlert
-                            className="text-red-600 me-2"
-                            size={28}
-                        />
-                        <h2 className="text-xl mb-0 md:text-2xl">Issues with the {commonName}</h2>
-                    </div>
-                    <div className="flex flex-wrap justify-evenly gap-4">
-                        {problems?.map(issue => (
-                        <p key={issue.problem} className="md:basis-5/12 md:text-lg">
-                            {issue.problem}
-                        </p>
-                        ))}
-                    </div>
-                </section> */}
                 <section className="my-6 md:my-8 md:mx-auto md:w-8/12 xl:w-6/12">
                     <div className="flex items-center my-4">
                         <IoMdAlert
@@ -232,7 +216,7 @@ export default function PlantPage() {
                     </div>
                 </section>
 
-                    <PlantNavigation />
+            <PlantNavigation />
 
 			</article>
 		)}

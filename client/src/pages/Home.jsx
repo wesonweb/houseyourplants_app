@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import PlantCard from '../components/Plant/PlantCard'
+import PlantCard from '../components/PlantCard/PlantCard'
 import { usePlantsContext } from '../hooks/usePlantsContext'
 import Loader from '../components/Loader/Loader'
 

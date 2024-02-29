@@ -5,10 +5,7 @@ import PropTypes from 'prop-types'
 import logo from '../../assets/logo.png'
 
 const Header = ({ handleClick } ) => {
-
     const { user } = useAuthContext()
-
-
     const isAdmin = user?.role === 'admin' ? true : false
     return (
 		<header className="bg-sky-100">

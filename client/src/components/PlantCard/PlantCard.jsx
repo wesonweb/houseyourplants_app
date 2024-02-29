@@ -1,12 +1,9 @@
 import { Link } from 'react-router-dom'
 import { PropTypes } from 'prop-types'
 
-
 function PlantCard({ plant }) {
     const { commonName, _id, scientificName } = plant
-    console.log(plant);
-
-  const { url } = plant && plant.image
+	const { url } = plant && plant.image
 
     return (
         <article
@@ -24,7 +21,7 @@ function PlantCard({ plant }) {
                     "
                 >
                     <h1 className="text-xl font-semibold mb-0 tracking-wide">{commonName}</h1>
-                    <span className="text-slate-600 text-base"><em>{scientificName}</em></span>
+                    <span className="text-slate-600 text-norm"><em>{scientificName}</em></span>
                 </div>
             </Link>
         </article>
