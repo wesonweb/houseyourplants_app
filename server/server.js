@@ -1,5 +1,6 @@
 const dotenv = require('dotenv')
 const express = require('express')
+const path = require('path')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const plantRoutes = require('./routes/plants')
@@ -18,6 +19,11 @@ app.use(express.urlencoded({extended: true, limit: '50mb'}))
 
 app.use('/api/plants', plantRoutes)
 app.use('/api/user', userRoutes)
+
+app.use(express.static(path.join(__dirname, '../client/dist')))
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'))
+    })
 
 mongoose.connect(MONGO_URI)
   .then(() => {
