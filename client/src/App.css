@@ -16,6 +16,7 @@ html, #root, main {
     flex-direction: column;
     flex-grow: 1;
     min-height: 100%;
+    background: rgb(220, 241, 255);
 
 }
 body {
@@ -50,4 +51,8 @@ body.modal-open {
 
 .visually-hidden {
     display: none;
+}
+
+h1, h2, h3 {
+    text-wrap: balance;
 }
