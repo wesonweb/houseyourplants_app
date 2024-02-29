@@ -1,0 +1,13 @@
+{
+  "name": "houseyourplants_app",
+  "version": "1.0.0",
+  "description": "## Project description",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
