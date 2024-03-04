@@ -50,7 +50,7 @@ const handleImageRemoval = (e) => {
             </div>
         </div>
         )}
-            <div className="max-w-5">
+            <div className="max-w-1/2">
                 <div>
                     { showSavedImage &&
                         (
