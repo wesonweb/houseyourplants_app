@@ -32,7 +32,7 @@ export default function PlantPage() {
 	useEffect(() => {
 	const fetchPlant = async () => {
 		try {
-			const response = await fetch(`http://localhost:4000/api/plants/${id}`)
+			const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/plants/${id}`)
 			const plant = await response.json()
 			if(response.ok) {
 			setLoading(false)
@@ -51,7 +51,7 @@ export default function PlantPage() {
 	let navigate = useNavigate()
 	const handleDeletePlant = async () => {
 		try {
-		const response = await fetch(`http://localhost:4000/api/plants/${id}`, {
+		const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/plants/${id}`, {
 			method: 'DELETE',
 			headers: {
             'Authorization': `Bearer ${user?.token}`,

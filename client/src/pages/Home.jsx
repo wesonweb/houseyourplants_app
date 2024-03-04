@@ -9,7 +9,7 @@ const Home = () => {
     useEffect( () => {
     const fetchPlants = async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/plants/')
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/plants/`)
             const data = await response.json()
             if(response.ok) {
                 seIsLoading(false)

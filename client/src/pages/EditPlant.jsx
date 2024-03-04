@@ -53,7 +53,7 @@ const fetchPlant = async () => {
         return
     }
     try {
-        const response = await fetch(`http://localhost:4000/api/plants/${id}`)
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/plants/${id}`)
         const plant = await response.json()
     if(response.ok) {
         setPlant(plant)
@@ -122,7 +122,7 @@ const onSubmit = async (data) => {
 
         try {
         const response = await toast.promise (
-            fetch(`http://localhost:4000/api/plants/edit/${id}`, {
+            fetch(`${import.meta.env.VITE_BASE_URL}/api/plants/edit/${id}`, {
 				method: 'PATCH',
 				body: JSON.stringify(plantData),
 				headers: {

@@ -72,7 +72,7 @@ const CreatePlant = () => {
         }
         const submitPlantData = async () => {
             try {
-                const response = await fetch('http://localhost:4000/api/plants/new-plant', {
+                const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/plants/new-plant`, {
                     method: 'POST',
                     body: JSON.stringify(plantData),
                     headers: {
