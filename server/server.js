@@ -19,9 +19,6 @@ app.use(express.urlencoded({extended: true, limit: '50mb'}))
 
 app.use('/api/plants', plantRoutes)
 app.use('/api/user', userRoutes)
-app.get('/', (req, res) => {
-    res.send('Hello from houseyourplants')
-})
 
 if (!DEVELOPMENT) {
     app.use(express.static(path.join(__dirname, 'client/dist')))
