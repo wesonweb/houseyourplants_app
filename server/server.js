@@ -19,9 +19,9 @@ app.use(express.urlencoded({extended: true, limit: '50mb'}))
 app.use('/api/plants', plantRoutes)
 app.use('/api/user', userRoutes)
 
-app.use(express.static(path.join(__dirname, 'client/dist')))
+app.use(express.static(path.join(__dirname, '../client/dist')))
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'))
 })
 
 mongoose.connect(MONGO_URI)
