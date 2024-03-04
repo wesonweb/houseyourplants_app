@@ -6,6 +6,8 @@ const cors = require('cors')
 const plantRoutes = require('./routes/plants')
 const userRoutes = require('./routes/user')
 
+dotenv.config()
+
 const PORT = process.env.PORT || 5000
 const MONGO_URI = process.env.MONGO_URI
 const DEVELOPMENT = process.env.NODE_ENV === 'development'
