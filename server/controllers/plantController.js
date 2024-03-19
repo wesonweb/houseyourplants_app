@@ -3,7 +3,7 @@ const { cloudinary } = require('../utils/cloudinary')
 
 // create a new plant
 const createPlant = async (req, res) => {
-  let {
+    let {
     image,
     commonName,
     scientificName,
@@ -18,50 +18,88 @@ const createPlant = async (req, res) => {
     flowers,
     problems,
     careLevel
-  } = req.body
+} = req.body
 
 
-  try {
+    try {
     const uploadResponse = await cloudinary.uploader.upload(image, {
-      upload_preset: 'houseyourplants'
+        upload_preset: 'houseyourplants'
     })
     image = {
-      publicId: uploadResponse.public_id,
-      url: uploadResponse.secure_url
+        publicId: uploadResponse.public_id,
+        url: uploadResponse.secure_url
     }
 
     const newPlant = await Plant.create({
-      image,
-      commonName,
-      scientificName,
-      description,
-      lighting,
-      feeding,
-      watering,
-      humidity,
-      temperature,
-      position,
-      toxicity,
-      flowers,
-      problems,
-      careLevel
+        image,
+        commonName,
+        scientificName,
+        description,
+        lighting,
+        feeding,
+        watering,
+        humidity,
+        temperature,
+        position,
+        toxicity,
+        flowers,
+        problems,
+        careLevel
     })
     res.status(200).json(newPlant)
-  } catch (err) {
-    console.error(err)
-    return res.status(400).json({message: 'Could not create plant'})
-  }
-}
+    } catch (err) {
+        console.error(err)
+        return res.status(400).json({message: 'Could not create plant'})
+    }
+    }
 
 // get all plants
 const getPlants = async (req, res) => {
-  try {
-    const plants = await Plant.find({}).sort({ createdAt : -1 })
-    res.status(200).json(plants)
-  } catch (err) {
-    console.log(err)
-    return res.status(400).json({message: 'Error trying to get plants'})
-  }
+    const { toxicity, flowers, lighting, position } = req.query
+    const noQuery = Object.keys(req.query).length === 0
+
+    let searchQuery = {}
+    searchQuery['$and'] = []
+
+    for (let key in req.query) {
+        if (key === 'toxicity') {
+            searchQuery['$and'].push({ toxicity: toxicity })
+        }
+        if (key === 'flowers') {
+            searchQuery['$and'].push({ flowers: flowers })
+        }
+        if (key === 'lighting')  {
+            if (typeof(lighting) === 'string') {
+            searchQuery['$and'].push({ lighting: lighting })
+            } else {
+                Object.keys(lighting).forEach(key => {
+                    searchQuery['$and'].push({ lighting: lighting[key] })
+                })
+            }
+        }
+        if (key === 'position')  {
+            if (typeof(position) === 'string') {
+            searchQuery['$and'].push({ position: position })
+            } else {
+                Object.keys(position).forEach(key => {
+                    searchQuery['$and'].push({ position: position[key] })
+                })
+            }
+        }
+    }
+
+	try {
+		if (noQuery) {
+			const plants = await Plant.find().sort({ commonName : 1 })
+			res.status(200).json(plants)
+		} else {
+            const plants = await Plant.find(searchQuery).sort({ commonName : 1 })
+            res.status(200).json(plants)
+		}
+	} catch (err) {
+		console.log(err)
+		return res.status(400).json({message: 'Error trying to get plants'})
+	}
 }
 
 // get a plant by id

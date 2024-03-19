@@ -157,7 +157,7 @@ export default function PlantPage() {
                         <div className="flex items-center">
                             <BsHouseHeartFill size={22} className="me-2" />
                             <div className="flex flex-wrap items-center">
-                                <span className="text-lg me-2">place it: </span>
+                                <span className="text-lg me-2">position: </span>
                                 <div className="flex">{position?.map(spot => (
                                     <p
                                         key={spot}
