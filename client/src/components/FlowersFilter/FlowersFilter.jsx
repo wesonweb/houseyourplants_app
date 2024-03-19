@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { LuFlower } from "react-icons/lu"
 
-const FlowersFilter = ({ setHasFlowers }) => {
+const FlowersFilter = ({ hasFlowers, setHasFlowers }) => {
    const handleFlowersChange = (e) => {
         setHasFlowers(e.target.checked)
     }
@@ -18,6 +18,7 @@ const FlowersFilter = ({ setHasFlowers }) => {
                 type="checkbox"
                 id="flowers"
                 name="flowers"
+                checked={hasFlowers}
                 onChange={handleFlowersChange}
                 className="w-4 h-4 accent-rose-800"
             />
@@ -26,6 +27,7 @@ const FlowersFilter = ({ setHasFlowers }) => {
 }
 
 FlowersFilter.propTypes = {
+    hasFlowers: PropTypes.bool.isRequired,
     setHasFlowers: PropTypes.func.isRequired
 }
 
