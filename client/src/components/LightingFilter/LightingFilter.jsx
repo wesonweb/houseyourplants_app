@@ -1,12 +1,18 @@
 import PropTypes from 'prop-types'
 import { MdSunny } from "react-icons/md";
-const LightingFilter = ({setLightingRequirements}) => {
+const LightingFilter = ({setLightingRequirements, isLightingChecked, setIsLightingChecked}) => {
 
     const lightingOptions = ['low', 'medium', 'direct']
 
     const handleLightingChange = (e) => {
         const selectedLighting = e.target.value
-        if (e.target.checked) {
+        const isCheckedValue = e.target.checked
+
+        setIsLightingChecked({
+            ...isLightingChecked,
+            [selectedLighting]: isCheckedValue
+        })
+        if (isCheckedValue) {
             // add current selection to the array along with any previous selections
             setLightingRequirements((prevRequirements) => [...prevRequirements, selectedLighting])
 
@@ -22,21 +28,22 @@ const LightingFilter = ({setLightingRequirements}) => {
             className="w-5 h-5 me-1 text-yellow-400"
         />
         <span className="inline-block me-3">Lighting:</span>
-        {lightingOptions.map((lighting, index) => (
+        {lightingOptions.map((lightingOption, index) => (
             <div
                 key={index}
                 className="flex items-center"
             >
                 <label
-                    htmlFor={lighting}
+                    htmlFor={lightingOption}
                 >
-                    {lighting === 'direct' ? 'bright' : lighting}
+                    {lightingOption === 'direct' ? 'bright' : lightingOption}
                 </label>
                 <input
                     type="checkbox"
-                    id={lighting}
-                    name={lighting}
-                    value={lighting}
+                    id={lightingOption}
+                    name={lightingOption}
+                    value={lightingOption}
+                    checked={isLightingChecked[lightingOption]}
                     onChange={handleLightingChange}
                     className="ms-2 me-5 w-4 h-4 accent-yellow-400"
                 />

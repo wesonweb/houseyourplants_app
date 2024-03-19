@@ -16,6 +16,18 @@ const Home = () => {
     const [lightingRequirements, setLightingRequirements] = useState([])
     const [positions, setPositions] = useState([])
 
+    const [isPositionChecked, setIsPositionChecked] = useState({
+        floor: false,
+        table: false,
+        hanging: false
+    })
+    const [isLightingChecked, setIsLightingChecked] = useState({
+        low: false,
+        medium: false,
+        direct: false
+    })
+
+
     const { plants, dispatch } = usePlantsContext()
 
     const filterStyling = "flex flex-wrap flex-col gap-3 grow bg-sky-100 p-2 rounded-xl md:flex-row md:items-center lg:p-4"
@@ -39,8 +51,8 @@ const Home = () => {
             }
             if (positions.length > 0) {
 
-                positions.forEach(lighting => {
-                    queryParams.append('position', lighting)
+                positions.forEach(position => {
+                    queryParams.append('position', position)
                 })
             }
 
@@ -92,17 +104,22 @@ const Home = () => {
                         </div>
                         <div className={filterStyling}>
                             <FlowersFilter
+                            hasFlowers={hasFlowers}
                                 setHasFlowers={setHasFlowers}
                             />
                         </div>
                         <div className={filterStyling}>
                             <LightingFilter
                                 setLightingRequirements={setLightingRequirements}
+                                isLightingChecked={isLightingChecked}
+                                setIsLightingChecked={setIsLightingChecked}
                             />
                         </div>
                         <div className={filterStyling}>
                             <PositionFilter
                                 setPositions={setPositions}
+                                isPositionChecked={isPositionChecked}
+                                setIsPositionChecked={setIsPositionChecked}
                             />
                         </div>
                     </div>
