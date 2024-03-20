@@ -9,15 +9,7 @@ import { capitaliseFirstLetter } from '../../utilities'
 const Header = ({ handleClick } ) => {
     const { user } = useAuthContext()
     const isAdmin = user?.role === 'admin' ? true : false
-
-    console.log(user?.username)
-
     const username = user?.username
-
-
-
-
-
     return (
 		<header className="bg-sky-100">
             {user && (
