@@ -10,7 +10,10 @@
     flex-grow: 1;
     height: 100%;
 } */
-
+:root {
+    --clr-green: #34d399;
+    --clr-violet: #7C3AED;
+}
 html, #root, main {
     display: flex;
     flex-direction: column;
@@ -55,4 +58,16 @@ body.modal-open {
 
 h1, h2, h3 {
     text-wrap: balance;
+}
+
+
+
+a:not(nav a) {
+    padding-bottom: 4px;
+    border-bottom: 3px solid var(--clr-green);
+    transition: all 0.3s ease;
+}
+
+a:hover:not(nav a) {
+    border-bottom: 3px solid var(--clr-violet);
 }
