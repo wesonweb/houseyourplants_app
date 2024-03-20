@@ -58,6 +58,8 @@ const PositionFilter = ({ setPositions, isPositionChecked, setIsPositionChecked 
 
 PositionFilter.propTypes = {
     setPositions: PropTypes.func.isRequired,
+    isPositionChecked: PropTypes.object.isRequired,
+    setIsPositionChecked: PropTypes.func.isRequired
 };
 
 export default PositionFilter;

@@ -54,7 +54,9 @@ const LightingFilter = ({setLightingRequirements, isLightingChecked, setIsLighti
 }
 
 LightingFilter.propTypes = {
-    setLightingRequirements: PropTypes.func.isRequired
+    setLightingRequirements: PropTypes.func.isRequired,
+    isLightingChecked: PropTypes.object.isRequired,
+    setIsLightingChecked: PropTypes.func.isRequired
 }
 
 export default LightingFilter
