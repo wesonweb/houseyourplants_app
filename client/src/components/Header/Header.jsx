@@ -4,14 +4,25 @@ import { MdOutlineAdd } from "react-icons/md"
 import PropTypes from 'prop-types'
 import logo from '../../assets/logo.png'
 
+import { capitaliseFirstLetter } from '../../utilities'
+
 const Header = ({ handleClick } ) => {
     const { user } = useAuthContext()
     const isAdmin = user?.role === 'admin' ? true : false
+
+    console.log(user?.username)
+
+    const username = user?.username
+
+
+
+
+
     return (
 		<header className="bg-sky-100">
             {user && (
             <div className="container mx-auto py-2 px-3 flex justify-end items-center gap-4">
-                <p className="text-right mb-0">Hello, {user?.username}</p>
+                <p className="text-right mb-0">Hello, {capitaliseFirstLetter(username)}</p>
 
             </div>
             )}
