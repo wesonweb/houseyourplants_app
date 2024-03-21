@@ -9,7 +9,7 @@ function About() {
                 name="description"
                 content="houseyourplants - about the app and the developer"
             />
-            <link rel="canonical" href="/shop" />
+            <link rel="canonical" href="/about" />
         </Helmet>
         <article className="container p-4 md:p-6">
             <h1 className="text-4xl mb-3 md:mb-5">About Houseyourplants</h1>
