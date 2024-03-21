@@ -21,6 +21,7 @@ const Login = () => {
                     name="description"
                     content="houseyourplants - log in to your account"
                 />
+                <link rel="canonical" href="/user/login"></link>
             </Helmet>
             <section className="flex flex-col md:flex-row h-screen items-center md:justify-center">
                 <form
