@@ -1,8 +1,24 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <meta
+        http-equiv="Content-Security-Policy"
+        content="
+            default-src 'self' 'unsafe-inline' http://localhost:4000 http://localhost:3500 https://houseyourplants-addc6337af13.herokuapp.com/;
+            img-src * 'self' https://res.cloudinary.com/webbapp/image/upload/;
+            style-src 'unsafe-inline' https://fonts.googleapis.com;
+            font-src 'self' 'unsafe-inline' data: https://fonts.gstatic.com;
+            "
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+        name="description"
+        content="houseyourplants - find the plant that's perfect for your home."
+        data-rh="true"
+    />
+    <meta name="robots" content="index, follow" />
+
     <title>Houseyourplants</title>
   </head>
   <body>

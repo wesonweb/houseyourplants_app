@@ -62,12 +62,12 @@ h1, h2, h3 {
 
 
 
-a:not(nav a) {
+a:not(nav a, .go-back) {
     padding-bottom: 4px;
     border-bottom: 3px solid var(--clr-green);
     transition: all 0.3s ease;
 }
 
-a:hover:not(nav a) {
+a:hover:not(nav a, .go-back) {
     border-bottom: 3px solid var(--clr-violet);
 }

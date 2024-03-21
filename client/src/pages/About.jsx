@@ -1,6 +1,16 @@
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 function About() {
     return (
+        <>
+        <Helmet>
+            <title>About houseyourplants</title>
+            <meta
+                name="description"
+                content="houseyourplants - about the app and the developer"
+            />
+            <link rel="canonical" href="/shop" />
+        </Helmet>
         <article className="container p-4 md:p-6">
             <h1 className="text-4xl mb-3 md:mb-5">About Houseyourplants</h1>
             <p>Hi, I&#39;m Wes and I&#39;m a big fan of house plants. They not only look good but they&#39;re good for your health - both physical and mental.</p>
@@ -11,6 +21,8 @@ function About() {
             <h2 className="text-xl">The tech stuff</h2>
             <p>This site was built using React, Node.js, Express.js and MongoDB. You can <Link to="https://wesonweb.co.uk">learn more about how I built it on my website</Link>.</p>
         </article>
+        </>
+
     )
 }
 
