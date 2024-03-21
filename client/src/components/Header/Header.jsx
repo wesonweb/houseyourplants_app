@@ -20,7 +20,7 @@ const Header = ({ handleClick } ) => {
             )}
 			<nav className="container mx-auto px-3 py-4 flex justify-between items-center flex-wrap">
 				<NavLink to="/">
-					<img src={logo} alt="plant leaves" height="200" className="logo"/>
+					<img src={logo} alt="plant leaves" height="200" width="75" className="logo"/>
 					<span className="brand-title">houseyourplants</span>
 				</NavLink>
                 <div>

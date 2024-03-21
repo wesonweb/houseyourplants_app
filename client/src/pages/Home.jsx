@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet-async'
 import PlantCard from '../components/PlantCard/PlantCard'
 import ToxicityFilter from '../components/ToxicityFilter/ToxicityFilter'
 import FlowersFilter from '../components/FlowersFilter/FlowersFilter'
@@ -76,6 +77,14 @@ const Home = () => {
 
     return (
     <>
+        <Helmet>
+            <title>houseyourplants</title>
+            <meta
+                name="description"
+                content="houseyourplants - find the plant that is perfect for your home"
+            />
+            <link rel="canonical" href="https://houseyourplants-addc6337af13.herokuapp.com/" />
+        </Helmet>
         <article className="container p-3 mx-auto plants">
             <h1 className="text-4xl">Houseyourplants</h1>
             <p>Find the plant that is perfect for your home</p>

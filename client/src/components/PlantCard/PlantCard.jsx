@@ -20,7 +20,7 @@ function PlantCard({ plant }) {
                         bg-gradient-to-t from-slate-100 via-slate-100 to-slate-50 absolute bottom-0 left-0 w-full h-16
                     "
                 >
-                    <h1 className="text-xl font-semibold mb-0 tracking-wide">{commonName}</h1>
+                    <h2 className="text-xl font-semibold mb-0 tracking-wide">{commonName}</h2>
                     <span className="text-slate-600 text-norm"><em>{scientificName}</em></span>
                 </div>
             </Link>
