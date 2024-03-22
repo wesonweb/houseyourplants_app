@@ -36,7 +36,27 @@ const registerUser = async (req, res) => {
     }
 }
 
+// reset password
+const resetPassword = async (req, res) => {
+    const { email } = req.body
+    try {
+        // find user by email
+        const user = await User.findOne({ email })
+        const { username } = user
+        console.log(`user is:`, user)
+        console.log(`username is:`, user.username)
+        if (!user) {
+            throw new Error('User not found. Please check your email address.')
+        }
+        res.status(200).json({ email, username })
+    } catch(error) {
+        res.status(400).json({ message: error.message })
+        console.log(error.message)
+    }
+}
+
 module.exports = {
     loginUser,
-    registerUser
+    registerUser,
+    resetPassword
 }

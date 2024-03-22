@@ -1,14 +1,18 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { usePasswordReset } from '../hooks/usePasswordReset'
 import { Helmet } from 'react-helmet-async'
 const PasswordReset = () => {
 	const [email, setEmail] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState('')
+    const { resetPassword, isLoading, error } = usePasswordReset()
 
     const handleSubmit = async (e) => {
 		e.preventDefault()
-        console.log('clicked')
+        await resetPassword(email)
+        if (error) {
+            console.log(error)
+            return
+        }
 	}
 
     const btnPrimary="bg-green-600 hover:bg-green-700 text-white font-bold mt-6 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:opacity-35"
@@ -26,11 +30,11 @@ const PasswordReset = () => {
             <section className="flex flex-col h-screen items-center md:justify-center">
                 <div className="w-full max-w-md mt-6 bg-white px-6 pt-6 pb-5 rounded-lg">
                     <form
-                    onSubmit={handleSubmit}
-                    className=""
+                        onSubmit={handleSubmit}
+                        className=""
                     >
                     <h1 className="text-2xl">Reset password</h1>
-                    <span className="text-slate-800">Enter your email address and password instructions will be sent to you.</span>
+                    <span className="text-slate-800">Enter your email address and password instructions will be emailed to you.</span>
                     <div className="mt-4">
                         <label className="block text-gray-700">Your email address:</label>
                         <input

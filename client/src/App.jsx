@@ -17,7 +17,7 @@ import Plant from './pages/PlantPage'
 import NotFound from './pages/NotFound'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import PasswordReset from './pages/ResetPassword'
+import PasswordReset from './pages/PasswordReset'
 
 import './App.css'
 import EditPlantForm from './pages/EditPlant'
