@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useLogin } from '../hooks/useLogin'
 import { Helmet } from 'react-helmet-async'
-const Login = () => {
+const PasswordReset = () => {
 	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-    const { login, isLoading, error } = useLogin()
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState('')
 
     const handleSubmit = async (e) => {
 		e.preventDefault()
-        await login(email, password)
+        console.log('clicked')
 	}
 
     const btnPrimary="bg-green-600 hover:bg-green-700 text-white font-bold mt-6 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:opacity-35"
@@ -17,12 +16,12 @@ const Login = () => {
 	return (
         <>
             <Helmet>
-                <title> houseyourplants - log in</title>
+                <title> houseyourplants - reset password</title>
                 <meta
                     name="description"
-                    content="houseyourplants - log in to your account"
+                    content="houseyourplants - reset your password"
                 />
-                <link rel="canonical" href="/user/login"></link>
+                <link rel="canonical" href="/user/password-reset"></link>
             </Helmet>
             <section className="flex flex-col h-screen items-center md:justify-center">
                 <div className="w-full max-w-md mt-6 bg-white px-6 pt-6 pb-5 rounded-lg">
@@ -30,10 +29,10 @@ const Login = () => {
                     onSubmit={handleSubmit}
                     className=""
                     >
-                    <h1 className="text-2xl">Sign in to your account</h1>
-                    <span className="text-slate-800">All fields must be completed</span>
+                    <h1 className="text-2xl">Reset password</h1>
+                    <span className="text-slate-800">Enter your email address and password instructions will be sent to you.</span>
                     <div className="mt-4">
-                        <label className="block text-gray-700">What is your email address?</label>
+                        <label className="block text-gray-700">Your email address:</label>
                         <input
                             type="email"
                             value={email}
@@ -42,19 +41,8 @@ const Login = () => {
                             className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                         />
                     </div>
-                    <div className="mt-4">
-                        <label className="block text-gray-700">Enter a password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="enter your password"
-                            className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
-                    focus:bg-white focus:outline-none"
-                        />
-                        <p className="m-0 text-slate-700 text-sm"><Link to="/user/password-reset" className="w-auto inline-block mt-4 border-0">Forgot password?</Link></p>
-                    </div>
-                    <button disabled={isLoading} className={btnPrimary}>Login</button>
+
+                    <button disabled={isLoading} className={btnPrimary}>Reset password</button>
                     {isLoading && <p className="text-gray-500 mt-2">Loading...</p>}
                     {error && <p className="text-red-500 mt-2">{error}</p>}
 
@@ -69,4 +57,4 @@ const Login = () => {
 		)
 }
 
-export default Login
+export default PasswordReset

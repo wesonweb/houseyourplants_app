@@ -17,6 +17,7 @@ import Plant from './pages/PlantPage'
 import NotFound from './pages/NotFound'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import PasswordReset from './pages/ResetPassword'
 
 import './App.css'
 import EditPlantForm from './pages/EditPlant'
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
 			<Route index element={<Home />} />
 			<Route path="/about" element={<About />} />
 			<Route path="/plants/:id" element={<Plant />} />
+			<Route path="/user/password-reset" element={<PasswordReset />} />
             <Route element={<RegisterProtected />} >
                 <Route path="/user/register" element={<Register />} />
             </Route>

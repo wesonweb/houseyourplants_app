@@ -47,7 +47,7 @@ const Register = () => {
                             />
                         </div>
                         <div className="mt-4">
-                            <label className="block text-gray-700">Email:</label>
+                            <label className="block text-gray-700">Enter your email address:</label>
                             <input
                                 type="email"
                                 value={email}
@@ -57,7 +57,7 @@ const Register = () => {
                             />
                         </div>
                         <div className="mt-4">
-                            <label className="block text-gray-700">Password</label>
+                            <label className="block text-gray-700">Choose a password</label>
                             <input
                                 type="password"
                                 value={password}

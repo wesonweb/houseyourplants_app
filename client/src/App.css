@@ -68,6 +68,10 @@ a:not(nav a, .go-back) {
     transition: all 0.3s ease;
 }
 
+a.border-0 {
+    border-bottom: none !important;
+}
+
 a:hover:not(nav a, .go-back) {
     border-bottom: 3px solid var(--clr-violet);
 }
