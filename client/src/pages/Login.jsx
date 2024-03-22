@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useLogin } from '../hooks/useLogin'
 import { Helmet } from 'react-helmet-async'
 const Login = () => {
@@ -23,12 +24,14 @@ const Login = () => {
                 />
                 <link rel="canonical" href="/user/login"></link>
             </Helmet>
-            <section className="flex flex-col md:flex-row h-screen items-center md:justify-center">
-                <form
+            <section className="flex flex-col h-screen items-center md:justify-center">
+                <div className="w-full max-w-md mt-6 bg-white px-6 pt-6 pb-5 rounded-lg">
+                    <form
                     onSubmit={handleSubmit}
-                    className="w-full max-w-md mt-6 bg-white p-8 rounded-lg"
+                    className=""
                     >
                     <h1 className="text-2xl">Sign in to your account</h1>
+                    <span className="text-slate-800">All fields must be completed</span>
                     <div className="mt-4">
                         <label className="block text-gray-700">Email:</label>
                         <input
@@ -55,6 +58,11 @@ const Login = () => {
                     {error && <p className="text-red-500 mt-2">{error}</p>}
 
                 </form>
+
+                <p className="m-0 text-slate-700">Not registered? <Link to="/user/register" className="w-auto inline-block mt-4">Create an account</Link></p>
+                </div>
+
+
             </section>
         </>
 		)
