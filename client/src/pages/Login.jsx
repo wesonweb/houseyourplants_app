@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useLogin } from '../hooks/useLogin'
 import { Helmet } from 'react-helmet-async'
+import Button from '../components/Button/Button'
+
 const Login = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -10,8 +12,6 @@ const Login = () => {
 		e.preventDefault()
         await login(email, password)
 	}
-
-    const btnPrimary="bg-green-600 hover:bg-green-700 text-white font-bold mt-6 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:opacity-35"
 
 	return (
         <>
@@ -50,7 +50,7 @@ const Login = () => {
                     focus:bg-white focus:outline-none"
                         />
                     </div>
-                    <button disabled={isLoading} className={btnPrimary}>Login</button>
+                    <Button disabled={isLoading} primary>Login</Button>
                     {isLoading && <p className="text-gray-500 mt-2">Loading...</p>}
                     {error && <p className="text-red-500 mt-2">{error}</p>}
 

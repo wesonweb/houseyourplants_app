@@ -11,6 +11,7 @@ import PlantLighting from '../components/CreatePlantForm/PlantLighting'
 import PlantFeedingAndWatering from '../components/CreatePlantForm/PlantFeedingAndWatering'
 import PlantHumidityAndTemperature from '../components/CreatePlantForm/PlantHumidityAndTemperature'
 import PlantProblems from '../components/CreatePlantForm/PlantProblems'
+import Button from '../components/Button/Button'
 
 import { useAuthContext } from '../hooks/useAuthContext'
 
@@ -102,7 +103,6 @@ const CreatePlant = () => {
     const formLabelDefaultStyle = "block text-gray-700 text-sm font-bold mb-2"
     const textInputStyle = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"
     const errorMessageStyle = "text-red-700 text-s italic mt-1"
-    const btnPrimary="bg-green-600 hover:bg-green-700 text-white font-bold mt-4 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:opacity-35"
     const btnSecondary="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
     return (
 
@@ -164,12 +164,11 @@ const CreatePlant = () => {
                     fields={fields}
                     append={append}
                     remove={remove}
-                    btnSecondary={btnSecondary}
                 />
-                <button
+                <Button
                     disabled={isSubmitting} // disable the button when the form is submitting
                     type="submit"
-                    className={btnPrimary}
+                    primary
                     >
                     {isSubmitting &&
                         <div className="inline-block h-4 w-4 me-2 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
@@ -181,7 +180,7 @@ const CreatePlant = () => {
                         </div>
                     }
                     Create plant
-                </button>
+                </Button>
             </form>
             </>
         </>

@@ -11,6 +11,7 @@ import PlantLighting from '../components/CreatePlantForm/PlantLighting'
 import PlantFeedingAndWatering from '../components/CreatePlantForm/PlantFeedingAndWatering'
 import PlantHumidityAndTemperature from '../components/CreatePlantForm/PlantHumidityAndTemperature'
 import PlantProblems from '../components/CreatePlantForm/PlantProblems'
+import Button from '../components/Button/Button'
 
 import { useAuthContext } from '../hooks/useAuthContext'
 import { toast } from 'react-toastify'
@@ -156,8 +157,6 @@ const onSubmit = async (data) => {
 const formLabelDefaultStyle = "block text-gray-700 text-sm font-bold mb-2"
 const textInputStyle = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"
 const errorMessageStyle = "text-red-700 text-s italic mt-1"
-const btnPrimary="bg-green-600 hover:bg-green-700 text-white font-bold mt-4 py-2 px-4 rounded"
-const btnSecondary="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
     return (
         <article className="container mx-auto">
             <h1 className="text-center text-4xl mt-4">Edit {plant?.commonName}</h1>
@@ -221,7 +220,7 @@ const btnSecondary="bg-transparent hover:bg-green-500 text-green-700 font-semibo
                 fields={fields}
                 append={append}
                 remove={remove}
-                btnSecondary={btnSecondary}
+                // btnSecondary={btnSecondary}
             />
             <Link
                 to={`/plants/${id}`}
@@ -232,16 +231,16 @@ const btnSecondary="bg-transparent hover:bg-green-500 text-green-700 font-semibo
                 Cancel
                 </div>
             </Link>
-            <button
+            <Button
+                primary
                 disabled={isSubmitting} // disable the button when the form is submitting
                 type="submit"
-                className={btnPrimary}
             >
                 <div className="flex items-center">
-                <MdCheck className="me-2"/>
-                Save changes
+                    <MdCheck className="me-2"/>
+                    Save changes
                 </div>
-            </button>
+            </Button>
 
             </form>
         </article>

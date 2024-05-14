@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useRegister } from '../hooks/useRegister'
 import { toast } from 'react-toastify'
 import { Helmet } from 'react-helmet-async'
+import Button from '../components/Button/Button'
 
 const Register = () => {
 	const [email, setEmail] = useState('')
@@ -16,7 +17,6 @@ const Register = () => {
             return
         }
 	}
-    const btnPrimary="bg-green-600 hover:bg-green-700 text-white font-bold mt-6 py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded disabled:opacity-35"
 	return (
         <>
             <Helmet>
@@ -65,7 +65,7 @@ const Register = () => {
                         />
                         <span className="text-sm text-slate-500 inline-block mt-2">Password must be at least 8 characters long, contain upper and lower case, at least one number and one special character</span>
                     </div>
-                    <button disabled={isLoading} className={btnPrimary}>Register</button>
+                    <Button primary disabled={isLoading}>Register</Button>
                     {isLoading && <p className="text-gray-500 mt-2">Loading...</p>}
                     {error && <p className="text-red-500 mt-2">{error}</p>}
                 </form>
