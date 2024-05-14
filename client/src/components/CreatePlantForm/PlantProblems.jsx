@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import {MdOutlineRemoveCircle} from 'react-icons/md'
+import Button from '../Button/Button'
 
 const PlantProblems = ({
   register,
@@ -9,7 +10,6 @@ const PlantProblems = ({
   fields,
   append,
   remove,
-  btnSecondary
 }) => {
   return (
     <div className="my-6">
@@ -44,7 +44,11 @@ const PlantProblems = ({
             })
           }
         <p className="mt-3 text-sm leading-6 text-gray-600">Enter any problems common to this plant.</p>
-          <button type="button" className={`${btnSecondary} mt-5`} onClick={() => append()}>Add a problem</button>
+        <Button
+            type="button"
+            secondary
+            onClick={() => append()}>Add a problem
+        </Button>
         </div>
     </div>
   )
