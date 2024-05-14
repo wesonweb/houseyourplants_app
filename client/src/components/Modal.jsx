@@ -28,13 +28,13 @@ const Modal = ({ handleDeletePlant, openModal, toggleModal }) => {
 					</header>
 					<div
 					className={`flex justify-center gap-5 pt-8 ${openModal ? "scale-100 opacity-100" : "scale-125 opacity-0"}`}>
-						<button
+						<Button
 							aria-label="cancel delete plant"
-							className="bg-gray-500 hover:bg-gray-600 shadow text-white font-bold py-2 px-4 rounded"
+							cancel
 							onClick={toggleModal}
 						>
 							Cancel
-						</button>
+						</Button>
 							<Button
                                 warning
                                 onClick={handleDeletePlant}
