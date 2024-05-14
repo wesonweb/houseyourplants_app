@@ -1,6 +1,7 @@
 
 import PropTypes from 'prop-types'
 import { IoMdClose } from "react-icons/io"
+import Button from './Button/Button'
 const Modal = ({ handleDeletePlant, openModal, toggleModal }) => {
 
 	return (
@@ -34,12 +35,12 @@ const Modal = ({ handleDeletePlant, openModal, toggleModal }) => {
 						>
 							Cancel
 						</button>
-							<button
-							className="bg-red-500 hover:bg-red-700 shadow text-white font-bold py-2 px-4 rounded"
-							onClick={handleDeletePlant}
-							>
+							<Button
+                                warning
+                                onClick={handleDeletePlant}
+                            >
 							Yes, delete
-						</button>
+						</Button>
 					</div>
 				</div>
 			</div>
