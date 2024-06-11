@@ -11,7 +11,7 @@ import { Protected, LoginProtected, RegisterProtected } from './routes/protected
 import RootLayout from './layouts/RootLayout'
 // page imports
 import Home from './pages/Home'
-import About from './pages/About'
+import About from './pages/About/About'
 import CreatePlant from './pages/CreatePlant'
 import Plant from './pages/PlantPage'
 import NotFound from './pages/NotFound'
