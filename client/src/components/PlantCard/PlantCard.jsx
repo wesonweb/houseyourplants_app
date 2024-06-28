@@ -1,3 +1,4 @@
+import React from 'react' // eslint-disable-line no-unused-vars
 import { Link } from 'react-router-dom'
 import { PropTypes } from 'prop-types'
 
@@ -21,7 +22,7 @@ function PlantCard({ plant }) {
                     "
                 >
                     <h2 className="text-xl font-semibold mb-0 tracking-wide">{commonName}</h2>
-                    <span className="text-slate-600 text-norm"><em>{scientificName}</em></span>
+                    <span className="text-slate-600 text-norm"><em data-testid="scientificName">{scientificName}</em></span>
                 </div>
             </Link>
         </article>
