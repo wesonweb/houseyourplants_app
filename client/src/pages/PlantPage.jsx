@@ -1,8 +1,8 @@
 
 import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import useFetch  from '../hooks/useFetch'
 import parse from 'html-react-parser'
 import Loader from '../components/Loader/Loader'
 import './PlantPage.css'
@@ -21,34 +21,10 @@ import { useAuthContext } from '../hooks/useAuthContext'
 
 
 export default function PlantPage() {
-
-	const [plant, setPlant] = useState(null)
-	const [loading, setLoading] = useState(true)
-	const [error, setError] = useState(null)
-
-	const { id } = useParams()
+    const { id } = useParams()
+    const { data: plant, loading, error } = useFetch(`${import.meta.env.VITE_BASE_URL}/api/plants/${id}`);
     const { user } = useAuthContext()
     const isAdmin = user?.role === 'admin' ? true : false
-
-	useEffect(() => {
-	const fetchPlant = async () => {
-		try {
-			const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/plants/${id}`)
-			const plant = await response.json()
-			if(response.ok) {
-			setLoading(false)
-			setPlant(plant)
-			setError(null)
-			}
-		}
-	catch (error) {
-		setError(error)
-		console.error(error)
-		}
-	}
-	fetchPlant()
-	}, [id])
-
 	let navigate = useNavigate()
 	const handleDeletePlant = async () => {
 		try {
